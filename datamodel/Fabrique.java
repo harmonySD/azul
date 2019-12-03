@@ -1,0 +1,2 @@
+pubic class Fabrique{
+}
