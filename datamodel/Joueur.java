@@ -5,5 +5,9 @@ public class Joueur{
 	private Ligne ligne;
 	private Plancher plancher;
 
+	public Joueur(){
+		score=0;
+		
+	}
 
 }
