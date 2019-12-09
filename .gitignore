@@ -1,0 +1,24 @@
+# Compiled source #
+*.class
+
+# Packages #
+*.jar
+
+*.lst
+
+# Logs and databases #
+*.log
+
+# Directories #
+assignment/target
+datamodel/target
+webserver/target
+
+# Intelij Idea #
+.idea/
+out/
+*.iml
+
+# Eclipse #
+.settings/
+bin/
