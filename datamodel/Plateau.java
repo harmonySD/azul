@@ -1,5 +1,5 @@
 public class Plateau{
-	private Case[][] plateau;
+	protected Case[][] plateau;
 	private int largeur,longueur;
 
 	public Plateau(){}

@@ -3,10 +3,10 @@ import java.util.*;
 
 public class Jeu{
 	private Joueur[] joueur;
-	private ArrayList<tuile>centre;
+	private ArrayList<Tuile>centre;
 	private Fabrique[] fabrique;
 	private ArrayList<Tuile> sac;
-	private ArrayList<tuile> defausse;
+	private ArrayList<Tuile> defausse;
 
 	public Jeu(int n){
 		joueur=new Joueur[n];
@@ -22,7 +22,7 @@ public class Jeu{
 			fabrique[i]=new Fabrique();
 		}
 		for (int i=0;i<100;i++){
-			sac.add(new Tuile());
+			sac.add(new Tuile("bleu"));
 		}
 
 	}
