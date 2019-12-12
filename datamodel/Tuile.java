@@ -5,4 +5,8 @@ public class Tuile{
 		couleur=c;
 	}
 
+	public String getCouleur(){
+		return this.couleur;
+	}
+
 }

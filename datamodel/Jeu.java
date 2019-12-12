@@ -15,6 +15,7 @@ public class Jeu{
 		}
 		centre=new ArrayList<Tuile>();
 		defausse=new ArrayList<Tuile>();
+		sac=new ArrayList<Tuile>();
 		if(n==2) fabrique=new Fabrique[5];
 		else if(n==3) fabrique=new Fabrique[7];
 		else if(n==4) fabrique=new Fabrique[9];
@@ -25,6 +26,9 @@ public class Jeu{
 			sac.add(new Tuile("bleu"));
 		}
 
+	}
+	public Joueur getJoueur(int i){
+		return joueur[i];
 	}
 
 }

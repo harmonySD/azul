@@ -22,4 +22,17 @@ public class Plateau{
 		}
 	}
 
+	public String toString(){ 
+		String s="";
+		for(int i=0; i<longueur;i++){
+			for(int j=0;j<largeur;j++){
+				s+=plateau[i][j].toString();// redefinir.toString dans case
+				
+			}
+			s+="\n";
+
+		}
+		return s;
+	}
+
 }

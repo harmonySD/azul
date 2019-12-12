@@ -17,5 +17,15 @@ public class Joueur{
 		nom=sc.next();
 	}
 
+	public Plancher getPlancher(){
+		return plancher;
+	}
+	public Mur getMur(){
+		return mur;
+	}
+	public Lignes getLigne(){
+		return ligne;
+	}
+
 
 }
