@@ -31,4 +31,8 @@ public class Jeu{
 		return joueur[i];
 	}
 
+	public Fabrique getFabrique(){
+		return fabrique;
+	}
+
 }

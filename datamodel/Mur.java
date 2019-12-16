@@ -5,7 +5,7 @@ public class Mur extends Plateau {
     super(5,5);
     remplirPlateauVide();
   }
-  
+
   public void remplirPlateauVide(){
     for (int i=0;i<taille;i++){
       for (int j=0;j<taille;j++){
