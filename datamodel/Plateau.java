@@ -2,7 +2,7 @@ public class Plateau{
 	protected Case[][] plateau;
 	private final int largeur,longueur;
 
-	//public Plateau(){}
+	public Plateau(){}
 	public Plateau(int n,int m){
 		largeur=m;
 		longueur=n;
