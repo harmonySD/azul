@@ -2,7 +2,7 @@ public class Plateau{
 	protected Case[][] plateau;
 	private final int largeur,longueur;
 
-	public Plateau(){}
+	//public Plateau(){}
 	public Plateau(int n,int m){
 		largeur=m;
 		longueur=n;
@@ -15,10 +15,10 @@ public class Plateau{
 		plateau=c;
 	}
 	public int getLargeur(){
-		retrun largeur;
+		return largeur;
 	}
 	public int getLongeur(){
-		retrun largeur;
+		return largeur;
 	}
 	public void remplirPlateauVide(){
 		for (int i=0;i<longueur;i++){

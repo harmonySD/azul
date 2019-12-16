@@ -15,8 +15,5 @@ public class Fabrique{
   	public int getNbTuile(){
   		return nbTuile;
   	}
-  	public void setNbTuile(int n){
-  		nbTuile=n;
-  	}
 
 }

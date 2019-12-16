@@ -13,7 +13,7 @@ public class Case{
 	public void setTuileDessus(boolean b){
 	  	tuileDessus=b;
 	}
-	public String getTuile(){
+	public Tuile getTuile(){
 	  	return tuile;
 	}
 	public void setCouleur(Tuile t){

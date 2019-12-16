@@ -18,6 +18,7 @@ public class Jeu{
 		if(n==2) fabrique=new Fabrique[5];
 		else if(n==3) fabrique=new Fabrique[7];
 		else if(n==4) fabrique=new Fabrique[9];
+		else fabrique=new Fabrique[5];  // a gere dans exception
 		for(int i=0;i<fabrique.length;i++){
 			fabrique[i]=new Fabrique();
 		}
