@@ -1,11 +1,11 @@
 import java.util.*;
 
 public class Joueur{
-	private String nom;
+	private final String nom;
 	private int score;
-	private Mur mur;
-	private Lignes ligne;
-	private Plancher plancher;
+	private final Mur mur;
+	private final Lignes ligne;
+	private final Plancher plancher;
 
 	public Joueur(){
 		score=0;
@@ -16,6 +16,26 @@ public class Joueur{
 		System.out.println("Entrez votre nom");
 		nom=sc.next();
 	}
+
+	public Mur getMur(){
+		return mur;
+	}
+	public Lignes getLignes(){
+		return Lignes;
+	}
+	public Plancher getPlancher(){
+		return plancher;
+	}
+	public String getNom(){
+		return nom;
+	}
+	public int getScore(){
+		return score;
+	}
+	public void setScore(int s){
+		score=s;
+	}
+
 
 
 }

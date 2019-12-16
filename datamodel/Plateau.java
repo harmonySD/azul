@@ -1,6 +1,6 @@
 public class Plateau{
 	protected Case[][] plateau;
-	private int largeur,longueur;
+	private final int largeur,longueur;
 
 	public Plateau(){}
 	public Plateau(int n,int m){
@@ -13,6 +13,12 @@ public class Plateau{
 	}
 	public void setPlateau(Case[][] c){
 		plateau=c;
+	}
+	public int getLargeur(){
+		retrun largeur;
+	}
+	public int getLongeur(){
+		retrun largeur;
 	}
 	public void remplirPlateauVide(){
 		for (int i=0;i<longueur;i++){
