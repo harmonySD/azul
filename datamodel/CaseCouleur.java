@@ -1,10 +1,14 @@
 public class CaseCouleur extends Case{
-  private String couleur;
+	private final String couleur;
 
-  public CaseCouleur(String c){
-    super();
-    couleur=c;
-  }
+  	public CaseCouleur(String c){
+    	super();
+    	couleur=c;
+  	}
+
+  	public String getCouleur(){
+		return couleur;
+	}
 
   public String toString(){
   	String s="";

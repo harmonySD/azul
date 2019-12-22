@@ -1,38 +1,25 @@
 public class Case{
-  private boolean tuileDessus;
-  protected Tuile tuile;
+	private boolean tuileDessus;
+	private Tuile tuile;
 
-  public Case(){
-    tuileDessus=false;
-    tuile=null;
-  }
-  public String toString(){
-  	String s="";
-		
-	if (this.tuileDessus==false){
-		s+="* ";
+	public Case(){
+		tuileDessus=false;
+	    tuile=null;
 	}
-	else{
-		if(this.tuile.getCouleur()=="orange"){
-			s+="🔶 ";
-		}
-		if (this.tuile.getCouleur()=="rouge") {
-			s+="🔴 ";
-		}
-		if (this.tuile.getCouleur()=="noir") {
-			s+="🔳 ";
-		}
-		if(this.tuile.getCouleur()=="blanc"){
-			s+="🔲 ";
-		}
-		if(this.tuile.getCouleur()=="bleu"){
-			s+="🔵 ";
-		}
-					
+
+	public boolean getTuileDessus(){
+	  	return tuileDessus;
 	}
-	
-	return s;
+	public void setTuileDessus(boolean b){
+	  	tuileDessus=b;
 	}
+	public Tuile getTuile(){
+	  	return tuile;
+	}
+	public void setCouleur(Tuile t){
+	  	tuile=t;
+	}
+
 }
 
 
