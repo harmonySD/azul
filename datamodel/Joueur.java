@@ -20,7 +20,7 @@ public class Joueur{
 	public Mur getMur(){
 		return mur;
 	}
-	public Lignes getLignes(){
+	public Lignes getLigne(){
 		return ligne;
 	}
 	public Plancher getPlancher(){

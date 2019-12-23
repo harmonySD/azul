@@ -30,11 +30,6 @@ public class Jeu{
 	public Joueur getJoueur(int i){
 		return joueur[i];
 	}
-
-	public Fabrique getFabrique(){
-		return fabrique;
-	}
-
 	public Joueur[] getJoueur(){
 		return joueur;
 	}

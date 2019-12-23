@@ -20,6 +20,10 @@ public class Case{
 	  	tuile=t;
 	}
 
+	public String toString(){
+		return "*";
+	}
+
 }
 
 
