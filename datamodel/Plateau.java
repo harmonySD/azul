@@ -22,10 +22,23 @@ public class Plateau{
 	}
 	public void remplirPlateauVide(){
 		for (int i=0;i<longueur;i++){
-			for (int j=0;j<largeur;j++){
+			for (int j=0;j<plateau[i].length;j++){
 				plateau[i][j]=new Case();
 			}
 		}
+	}
+
+	public String toString(){ 
+		String s="";
+		for(int i=0; i<longueur;i++){
+			for(int j=0;j<plateau[i].length;j++){
+				s+=plateau[i][j].toString();
+				
+			}
+			s+="\n";
+
+		}
+		return s;
 	}
 
 }
