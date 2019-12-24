@@ -63,4 +63,12 @@ public class Jeu{
 		}
 	}
 
+	public void remplirFabriques(){
+		for (int i=0; i<fabrique.size();i++){
+			fabrique[i].remplirFabrique();
+			System.out.println("fabrique["i"] ok");
+		}
+
+	}
+
 }

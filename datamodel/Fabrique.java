@@ -7,13 +7,17 @@ public class Fabrique{
 	}
 
 	public Tuile[] getTas(){
-  		return tas;
-  	}
-  	public void setTas(Tuile[] t){
-  		tas=t;
-  	}
-  	public int getNbTuile(){
-  		return nbTuile;
-  	}
+  	return tas;
+  }
+  public void setTas(Tuile[] t){
+  	tas=t;
+  }
+  public int getNbTuile(){
+  	return nbTuile;
+  }
+
+  public void remplirFabrique(){
+    
+  }
 
 }
