@@ -46,13 +46,7 @@ public class Joueur{
 		}
 		return false;
 	}
-	pubic boolean isSacEmpty(){
-	    if(this.sac.size()==0){
-	    	return true; //il faut donc remplir le sac grace a la defausse 
-	    }else{
-		    return false;
-	    }
-	}
+
 
 
 
