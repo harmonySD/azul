@@ -91,4 +91,11 @@ public class Jeu{
 		}
 		System.out.println(j.getNom()+"a gagné avec un score de "+ j.getScore());
 	}
+	pubic boolean isSacEmpty(){
+		if(this.sac.size()==0){
+			return true; //il faut donc remplir le sac grace a la defausse 
+		}else{
+			return false;
+		}
+	}
 }
