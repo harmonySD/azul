@@ -55,4 +55,29 @@ public class Jeu{
 		defausse=c;
 	}
 
+	public void partie(){
+		while(isFullLine()){
+			preparation();
+			offre();
+			decoration()
+		}
+		fin();
+	}
+
+	public boolean isFullLine(){
+		for(int i=0;i<joueur.length;i++){
+			if(joueur[i].isFullLine()) return true;
+		}
+		return false;
+	}
+
+	public void preparation(){
+
+	}
+	public void offre(){
+
+	}
+	public void decoration(){
+
+	}
 }
