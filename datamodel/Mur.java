@@ -24,4 +24,8 @@ public class Mur extends Plateau {
     }
   }
 
+  public int getTaille(){
+    return taille;
+  }
+
 }

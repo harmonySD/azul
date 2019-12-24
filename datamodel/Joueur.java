@@ -36,6 +36,17 @@ public class Joueur{
 		score=s;
 	}
 
+	public boolean isFullLine(){
+		for(int i=0;i<mur.getTaille();i++){
+			boolean b=true;
+			for(int j=0;j<mur.getTaille();j++){
+				if(!mur.getPlateau(i,j).getTuileDessus()) b=false;
+			}
+			if(b) return true;
+		}
+		return false;
+	}
+
 
 
 }
