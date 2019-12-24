@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Fabrique{
 	private Tuile [] tas;
 	private final int nbTuile=4;
@@ -8,12 +10,17 @@ public class Fabrique{
 
 	public Tuile[] getTas(){
   		return tas;
-  	}
-  	public void setTas(Tuile[] t){
-  		tas=t;
-  	}
-  	public int getNbTuile(){
-  		return nbTuile;
-  	}
+  }
+	public void setTas(Tuile[] t){
+ 		tas=t;
+ 	}
+ 	public int getNbTuile(){
+ 		return nbTuile;
+ 	}
+
+  public void remplirFabrique(ArrayList<Tuile> sac){
+
+  }
+
 
 }

@@ -59,7 +59,7 @@ public class Jeu{
 		while(isFullLine()){
 			preparation();
 			offre();
-			decoration()
+			decoration();
 		}
 		fin();
 	}
@@ -72,12 +72,18 @@ public class Jeu{
 	}
 
 	public void preparation(){
-
+		centre.add(new Tuile("vert"));  // vert=tuile -1
+		for(int i=0;i<fabrique.length;i++){
+			fabrique[i].remplirFabrique(sac);
+		}
 	}
 	public void offre(){
 
 	}
 	public void decoration(){
 
+	}
+	public void fin(){
+		
 	}
 }

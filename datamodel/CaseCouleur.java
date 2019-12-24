@@ -13,16 +13,16 @@ public class CaseCouleur extends Case{
   public String toString(){
   	String s="";
 	if(this.couleur=="orange"){
-		s+="✴️ ";
+		s+="⏹ ";
 	}
 	if (this.couleur=="rouge") {
 		s+="🆘";
 	}
 	if (this.couleur=="noir") {
-		s+="☑️ ";
+		s+="✴️ ";
 	}
 	if(this.couleur=="blanc"){
-		s+="⏹ ";
+		s+="☑️ ";
 	}
 	if(this.couleur=="bleu"){
 		s+="🚹";
