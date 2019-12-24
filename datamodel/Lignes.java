@@ -17,8 +17,6 @@ public class Lignes extends Plateau{
   public Lignes(){
   	 super(5,5);
   	 remplirPlateauVide();
-
-
   }
   	public String toString(){ 
 		String s="";
@@ -30,6 +28,10 @@ public class Lignes extends Plateau{
 		}
 		return s;
 	}
+
+  public int getTaille(){
+    return taille;
+  }
 
 
 

@@ -11,6 +11,9 @@ public class Plateau{
 	public Case[][] getPlateau(){
 		return plateau;
 	}
+	public Case getPlateau(int i,int j){
+		return plateau[i][j];
+	}
 	public void setPlateau(Case[][] c){
 		plateau=c;
 	}
@@ -27,7 +30,6 @@ public class Plateau{
 			}
 		}
 	}
-
 	public String toString(){ 
 		String s="";
 		for(int i=0; i<longueur;i++){

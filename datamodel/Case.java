@@ -26,22 +26,7 @@ public class Case{
     		s+="* ";
     	}
     	else{
-    		if(this.tuile.getCouleur()=="orange"){
-    			s+="🔶 ";
-    		}
-    		if (this.tuile.getCouleur()=="rouge") {
-    			s+="🔴 ";
-    		}
-    		if (this.tuile.getCouleur()=="noir") {
-    			s+="🔳 ";
-    		}
-    		if(this.tuile.getCouleur()=="blanc"){
-    			s+="🔲 ";
-    		}
-    		if(this.tuile.getCouleur()=="bleu"){
-    			s+="🔵 ";
-    		}
-    					
+    		s+=tuile.toString();    					
     	}
     	
     	return s;
