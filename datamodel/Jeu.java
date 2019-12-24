@@ -19,7 +19,7 @@ public class Jeu{
 		else if(n==3) fabriques=new Fabrique[7];
 		else if(n==4) fabriques=new Fabrique[9];
 		else fabriques=new Fabrique[5];  // a gere dans exception
-		for(int i=0;i<fabrique.length;i++){
+		for(int i=0;i<fabriques.length;i++){
 			fabriques[i]=new Fabrique();
 		}
 		for (int i=0;i<100;i++){
@@ -87,7 +87,7 @@ public class Jeu{
 		Joueur j=joueurs[0];
 		for(int i=0;i<joueurs.length;i++){
 			System.out.println(joueurs[i].getNom()+" : "+joueurs[i].getScore());
-			if(j.getScore()<joueurs[i]) j=joueurs[i];
+			if(j.getScore()<joueurs[i].getScore()) j=joueurs[i];
 		}
 		System.out.println(j.getNom()+"a gagné avec un score de "+ j.getScore());
 	}
