@@ -55,19 +55,30 @@ public class Jeu{
 		defausse=c;
 	}
 
-	pubic boolean isSacEmpty(){
+	public boolean isSacEmpty(){
 		if(this.sac.size()==0){
 			return true; //il faut donc remplir le sac grace a la defausse 
 		}else{
 			return false;
 		}
 	}
+	public void remplirSac(ArrayList<Tuile> sac){
+		for(int i=0;i<this.defausse.size();i++){
+				sac[i]=defausse[i];
+				defausse[i]=null;
+		}
+	}
 
 	public void remplirFabriques(){
-		for (int i=0; i<fabrique.size();i++){
-			fabrique[i].remplirFabrique();
-			System.out.println("fabrique["i"] ok");
+		if(this.sac.size()!=0){
+			for (int i=0; i<fabrique.size();i++){
+				fabrique[i].remplirFabrique(this.sac);
+				System.out.println("fabrique["i"] ok");
+			}
+		}else{
+			remplirSac(this.sac);
 		}
+		
 
 	}
 
