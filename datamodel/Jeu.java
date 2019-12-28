@@ -1,26 +1,26 @@
 import java.util.*;
 
 public class Jeu{
-	private final Joueur[] joueur;
-	private final Fabrique[] fabrique;
+	private final Joueur[] joueurs;
+	private final Fabrique[] fabriques;
 	private ArrayList<Tuile> centre;
 	private ArrayList<Tuile> sac;
 	private ArrayList<Tuile> defausse;
 
 	public Jeu(int n){
-		joueur=new Joueur[n];
+		joueurs=new Joueur[n];
 		for (int i=0; i<n; i++){
-			joueur[i]=new Joueur();
+			joueurs[i]=new Joueur();
 		}
 		centre=new ArrayList<Tuile>();
 		defausse=new ArrayList<Tuile>();
 		sac=new ArrayList<Tuile>();
-		if(n==2) fabrique=new Fabrique[5];
-		else if(n==3) fabrique=new Fabrique[7];
-		else if(n==4) fabrique=new Fabrique[9];
-		else fabrique=new Fabrique[5];  // a gere dans exception
-		for(int i=0;i<fabrique.length;i++){
-			fabrique[i]=new Fabrique();
+		if(n==2) fabriques=new Fabrique[5];
+		else if(n==3) fabriques=new Fabrique[7];
+		else if(n==4) fabriques=new Fabrique[9];
+		else fabriques=new Fabrique[5];  // a gere dans exception
+		for(int i=0;i<fabriques.length;i++){
+			fabriques[i]=new Fabrique();
 		}
 		for (int i=0;i<100;i++){
 			sac.add(new Tuile("bleu"));
@@ -28,13 +28,13 @@ public class Jeu{
 
 	}
 	public Joueur getJoueur(int i){
-		return joueur[i];
+		return joueurs[i];
 	}
 	public Joueur[] getJoueur(){
-		return joueur;
+		return joueurs;
 	}
 	public Fabrique[] getFabrique(){
-		return fabrique;
+		return fabriques;
 	}
 	public ArrayList<Tuile> getCentre(){
 		return centre;
@@ -55,7 +55,43 @@ public class Jeu{
 		defausse=c;
 	}
 
-	public boolean isSacEmpty(){
+	public void partie(){
+		while(isFullLine()){
+			preparation();
+			offre();
+			decoration();
+		}
+		fin();
+	}
+
+	public boolean isFullLine(){
+		for(int i=0;i<joueurs.length;i++){
+			if(joueurs[i].isFullLine()) return true;
+		}
+		return false;
+	}
+
+	public void preparation(){
+		centre.add(new Tuile("vert"));  // vert=tuile -1
+		for(int i=0;i<fabriques.length;i++){
+			fabriques[i].remplirFabrique(sac);
+		}
+	}
+	public void offre(){
+
+	}
+	public void decoration(){
+
+	}
+	public void fin(){
+		Joueur j=joueurs[0];
+		for(int i=0;i<joueurs.length;i++){
+			System.out.println(joueurs[i].getNom()+" : "+joueurs[i].getScore());
+			if(j.getScore()<joueurs[i].getScore()) j=joueurs[i];
+		}
+		System.out.println(j.getNom()+"a gagné avec un score de "+ j.getScore());
+	}
+	pubic boolean isSacEmpty(){
 		if(this.sac.size()==0){
 			return true; //il faut donc remplir le sac grace a la defausse 
 		}else{

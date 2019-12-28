@@ -7,5 +7,9 @@ public class Plancher extends Plateau{
     remplirPlateauVide();
   }
 
+  public int getTaille(){
+    return taille;
+  }
+
 
 }

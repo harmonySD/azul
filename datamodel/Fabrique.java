@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Fabrique{
 	private Tuile [] tas;
 	private final int nbTuile=4;
