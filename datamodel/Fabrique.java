@@ -19,17 +19,16 @@ public class Fabrique{
   }
 
   public void remplirFabrique(ArrayList<Tuile> sac){
-    for (int i=0; i<4;i++){
+  	for (int i=0; i<nbTuile;i++){
       Random r= new Random();
       int a =r.nextInt(sac.size());
-      if(sac[a]!=null){
-        tas[i]=sac[a];
-        sac[a]=null;
+      if(sac.get(a)!=null){
+        tas[i]=sac.get(a);
+        sac.remove(a);
       }
-      
     }
+  }
     
-
 
 
 
