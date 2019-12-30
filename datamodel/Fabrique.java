@@ -22,5 +22,14 @@ public class Fabrique{
 
   }
 
+  public ArrayList<Tuile> take(String c){
+  	ArrayList<Tuile> sameColor =new ArrayList<Tuile>();
+  	for(int i=0;i<tas.size();i++){
+  		if(tas[i].getCouleur().equals(c)){
+  			sameColor.add(tas[i]);
+  		}
+  	}
+  }
+
 
 }
