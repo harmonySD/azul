@@ -21,14 +21,15 @@ public class Fabrique{
   public void remplirFabrique(ArrayList<Tuile> sac){
 
   }
-
+  // prend toutes les tuiles d'une certaines couleur et retourne une ArrayList
   public ArrayList<Tuile> take(String c){
   	ArrayList<Tuile> sameColor =new ArrayList<Tuile>();
-  	for(int i=0;i<tas.size();i++){
+  	for(int i=0;i<tas.length;i++){
   		if(tas[i].getCouleur().equals(c)){
   			sameColor.add(tas[i]);
   		}
   	}
+  	return sameColor;
   }
 
 
