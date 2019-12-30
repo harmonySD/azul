@@ -61,7 +61,7 @@ public class Lignes extends Plateau{
     if (isFull(line)){
       addPlancher(t);
     }
-    if () {
+    if (!isEmpty() && (!t[0].getCouleur().equals())) {// je voudrais dire si ce n,est pas vide et que la couleur de t n,est pas la meme qeu la couleur deja presente sur la ligne 
       
     }
 
