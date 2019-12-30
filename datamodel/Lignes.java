@@ -1,6 +1,7 @@
+import java.util.*;
+
 public class Lignes extends Plateau{
   private int taille=5;
-
 
   public Lignes(){
   	 super(5,5);
@@ -56,25 +57,24 @@ public class Lignes extends Plateau{
     return b;
   }
 
-  public void add(ArrayList<Tuile> t, int line){
-    if (isFull(line)){
-      addPlancher(t);
-    }
+  public boolean add(ArrayList<Tuile> t, int line){
+    if (isFull(line)) return false;
+    
     if (isEmpty(line)){
     	for(int i=0;i<line+1;i++){
-    		this.plateau[line][i]=t.get(0);
-    		t.remove(plateau[line][i])
+    		this.plateau[line][i].setTuile(t.get(0));
+    		plateau[line][i].setTuileDessus(true);
+    		t.remove(this.plateau[line][i].getTuile());
     	}
-    	if(!t.isEmpty()) addPlancher(t);
+    	
     } else{
-    	if (((!t.get(0).getCouleur().equals(plateau[line][0])){// je voudrais dire si ce n'est pas vide et que la couleur de t n'est pas la meme qeu la couleur deja presente sur la ligne 
-      		System.out.println("Mauvaise ligne, pas la bonne couleur")  // je pense il faut le gerer dans une exception
+    	if (!t.get(0).getCouleur().equals(plateau[line][0])){// je voudrais dire si ce n'est pas vide et que la couleur de t n'est pas la meme qeu la couleur deja presente sur la ligne 
+      		System.out.println("Mauvaise ligne, pas la bonne couleur");  // je pense il faut le gerer dans une exception
       	}
     }
-
+    if(!t.isEmpty()) return false;  // permet dajouter au plancher le reste qui n'a pas ete ajouter
+    else return true;
   }
-
-
 
  
 
