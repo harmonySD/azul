@@ -12,13 +12,14 @@ public class Plancher extends Plateau{
   }
 
   public void addPlancher(ArrayList<Tuile> t){
-  	if(this[6] !=null){
+  	if(this[0][6] !=null){
   		System.out.println("Plancher plein");
   	}else{
   		int j=0;
-  		for(int i=0; i<6;i++){
-  			if(this[i] =null){
-  				floor[i]=t[j];
+  		for(int i=0; i<taille;i++){
+  			if(this[0][i]=null){
+  				this.plateau[0][i]=t.get(j);
+  				//floor[i]=t.get(j);  // cest quoi floor
   				j++;
   			}
   		}
