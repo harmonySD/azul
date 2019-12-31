@@ -7,6 +7,7 @@ public class CaseCouleur extends Case{
   	}
 
   	public String getCouleur(){
+  		System.out.println("a");
 		return couleur;
 	}
 

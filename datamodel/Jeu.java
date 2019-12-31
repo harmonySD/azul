@@ -58,7 +58,7 @@ public class Jeu{
 	public void partie(){
 		while(isFullLine()){
 			preparation();
-			offre();
+		//	offre();
 			decoration();
 		}
 		fin();
@@ -77,9 +77,22 @@ public class Jeu{
 			fabriques[i].remplirFabrique(sac);
 		}
 	}
+	/*
 	public void offre(){
+		while(isTuileInGame()){
+			for(int i=0; i<joeurs.length;i++){
+				System.out.println(joueurs[i].getFabrique());
+			}
+		}
+		//tant qu'il reste des tuiles en jeu 
+		//pour tout les joeurs
+		// afficher les fabriques demandder quel tuile il veut 
+		//retirer la tuile qu'il veut 
+		//demander ouu il veut la poser
+		//la poser 
 
-	}
+
+	}*/
 	public void decoration(){
 
 	}
@@ -97,5 +110,18 @@ public class Jeu{
 		}else{
 			return false;
 		}
+	}
+
+	public boolean 
+
+	public String toString(){
+		String s="";
+		for(int i=0; i<fabriques.length;i++){
+			System.out.println("coucou");
+			s+=fabriques[i].toString();
+			s+="\n";
+			
+		}
+		return s;
 	}
 }

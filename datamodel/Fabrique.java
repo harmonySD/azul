@@ -32,5 +32,19 @@ public class Fabrique{
   	return sameColor;
   }
 
+  	public String toString(){ 
+		String s="";
+		for(int i=0; i<nbTuile;i++){
+			System.out.println("coucou");
+			s+=tas[i].getCouleur().toString();
+			if(i==1){
+				s+="\n";
+			}
+			
+		}
+		return s;
+	}
+
+
 
 }

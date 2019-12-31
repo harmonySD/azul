@@ -8,8 +8,9 @@ public class Test{
 		int n=sc.nextInt();
 		Jeu j=new Jeu(n);
 		System.out.println(j.getJoueur(0).getMur());
-		System.out.println(j.getJoueur(0).getLigne());
-		System.out.println(j.getJoueur(0).getPlancher());
+		//System.out.println(j.getJoueur(0).getLigne());
+		//System.out.println(j.getJoueur(0).getPlancher());
+		Arrays.toString(j.getFabrique());
 
 	}
 
