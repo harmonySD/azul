@@ -122,10 +122,10 @@ public class Jeu{
 				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
 				int lig=sc3.nextInt();
 
-				if(joueurs[i].getLigne().add(t,lig)){
+				if(!joueurs[i].getLigne().add(t,lig)){
 					joueurs[i].getPlancher().addPlancher(t);
 				}
-				//if add false ajouter reste au plancher
+			
 
 				System.out.println("mur"+joueurs[i].getMur());
 				System.out.println("ligne"+joueurs[i].getLigne());
