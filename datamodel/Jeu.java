@@ -134,6 +134,9 @@ public class Jeu{
 		}
 	}
 	public void decoration(){
+		//pour chaque joeur 
+		//si ligne complete mettre la tuile sur le mur 
+		//compter et afficher le nombre de pt (regarder si tuile dans le plancher)
 
 	}
 	public void fin(){
