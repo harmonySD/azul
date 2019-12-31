@@ -24,6 +24,10 @@ public class Jeu{
 		}
 		for (int i=0;i<20;i++){
 			sac.add(new Tuile("bleu"));
+			sac.add(new Tuile("orange"));
+			sac.add(new Tuile("blanc"));
+			sac.add(new Tuile("noir"));
+			sac.add(new Tuile("rouge"));
 		}
 		for(int i=0;i<40;i++){
 			sac.add(new Tuile("orange"));

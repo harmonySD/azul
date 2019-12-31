@@ -9,14 +9,14 @@ public class Fabrique{
 	}
 
 	public Tuile[] getTas(){
-  		return tas;
+  	return tas;
   }
-	public void setTas(Tuile[] t){
- 		tas=t;
- 	}
- 	public int getNbTuile(){
- 		return nbTuile;
- 	}
+  public void setTas(Tuile[] t){
+  	tas=t;
+  }
+  public int getNbTuile(){
+  	return nbTuile;
+  }
 
   public void remplirFabrique(ArrayList<Tuile> sac){
   	  	for (int i=0; i<nbTuile;i++){
@@ -45,6 +45,8 @@ public class Fabrique{
 
   	return sameColor;
   }
+    
+
 
   	public String toString(){ 
 		String s="";
