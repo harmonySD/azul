@@ -147,14 +147,5 @@ public class Jeu{
 		
 	}
 
-	public String toString(){
-		String s="";
-		System.out.println("r");
-		for(int i=0; i<fabriques.length;i++){
-			s+=fabriques[i].getTas().toString();
-			s+="\n";
-			
-		}
-		return s;
-	}
+
 }

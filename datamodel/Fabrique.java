@@ -44,13 +44,12 @@ public class Fabrique{
   	public String toString(){ 
 		String s="";
 		for(int i=0; i<nbTuile;i++){
-			System.out.println("coucou");
 			s+=tas[i];
 			if(i==1){
 				s+="\n";
-			}
-			
+			}	
 		}
+		s+="\n";
 		return s;
 	}
 
