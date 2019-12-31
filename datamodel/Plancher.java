@@ -22,7 +22,6 @@ public class Plancher extends Plateau{
   			if(this.plateau[0][i]==null){
   				this.plateau[0][i].setTuile(t.get(j));
   				plateau[0][i].setTuileDessus(true);
-  				//floor[i]=t.get(j);  // cest quoi floor
   				t.remove(plateau[0][i].getTuile());
   				j++;
   			}
