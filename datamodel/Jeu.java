@@ -22,8 +22,20 @@ public class Jeu{
 		for(int i=0;i<fabriques.length;i++){
 			fabriques[i]=new Fabrique();
 		}
-		for (int i=0;i<100;i++){
+		for (int i=0;i<20;i++){
 			sac.add(new Tuile("bleu"));
+		}
+		for(int i=0;i<40;i++){
+			sac.add(new Tuile("orange"));
+		}
+		for(int i=0;i<60;i++){
+			sac.add(new Tuile("rouge"));
+		}
+		for (int i=0;i<80;i++){
+			sac.add(new Tuile("noir"));
+		}
+		for(int i=0;i<100;i++){
+			sac.add(new Tuile("blanc"));
 		}
 
 	}
@@ -58,7 +70,7 @@ public class Jeu{
 	public void partie(){
 		while(isFullLine()){
 			preparation();
-		//	offre();
+			//offre();
 			decoration();
 		}
 		fin();
@@ -74,11 +86,11 @@ public class Jeu{
 	public void preparation(){
 		centre.add(new Tuile("vert"));  // vert=tuile -1
 		for(int i=0;i<fabriques.length;i++){
-			fabriques[i].remplirFabrique(sac);
+			
 		}
 	}
-	/*
-	public void offre(){
+	
+	/*public void offre(){
 		while(isTuileInGame()){
 			for(int i=0; i<joeurs.length;i++){
 				System.out.println(joueurs[i].getFabrique());
@@ -112,13 +124,34 @@ public class Jeu{
 		}
 	}
 
-	public boolean 
+	public boolean isTuileInGame(){
+		boolean b=true;
+		boolean t=true;
+		for(int i=0;i<fabriques.length;i++){
+			if(fabriques[i].getTas().length==0){
+				b=false;
+			}else{
+				b=true;
+			}
+			if (isSacEmpty()){
+				t=false;
+			}else{
+				t=true;
+			}
+		}
+		if(b==t && b==false){
+			return false;
+		}else{
+			return true;
+		}
+		
+	}
 
 	public String toString(){
 		String s="";
+		System.out.println("r");
 		for(int i=0; i<fabriques.length;i++){
-			System.out.println("coucou");
-			s+=fabriques[i].toString();
+			s+=fabriques[i].getTas().toString();
 			s+="\n";
 			
 		}

@@ -19,6 +19,15 @@ public class Fabrique{
  	}
 
   public void remplirFabrique(ArrayList<Tuile> sac){
+  	  	for (int i=0; i<nbTuile;i++){
+      Random r= new Random();
+      int a =r.nextInt(sac.size());
+      if(sac.get(a)!=null){
+        tas[i]=sac.get(a);
+        sac.remove(a);
+      }
+    }
+
 
   }
   // prend toutes les tuiles d'une certaines couleur et retourne une ArrayList
@@ -36,7 +45,7 @@ public class Fabrique{
 		String s="";
 		for(int i=0; i<nbTuile;i++){
 			System.out.println("coucou");
-			s+=tas[i].getCouleur().toString();
+			s+=tas[i];
 			if(i==1){
 				s+="\n";
 			}
