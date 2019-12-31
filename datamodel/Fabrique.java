@@ -19,7 +19,7 @@ public class Fabrique{
   }
 
   public void remplirFabrique(ArrayList<Tuile> sac){
-  	for (int i=0; i<nbTuile;i++){
+  	  	for (int i=0; i<nbTuile;i++){
       Random r= new Random();
       int a =r.nextInt(sac.size());
       if(sac.get(a)!=null){
@@ -27,8 +27,38 @@ public class Fabrique{
         sac.remove(a);
       }
     }
+
+
+  }
+  // prend toutes les tuiles d'une certaines couleur et retourne une ArrayList
+  public ArrayList<Tuile> take(String c, ArrayList<Tuile> center){
+  	ArrayList<Tuile> sameColor =new ArrayList<Tuile>();
+  	for(int i=0;i<tas.length;i++){
+  		if(tas[i].getCouleur().equals(c)){
+  			sameColor.add(tas[i]);
+  		}else{
+  			center.add(tas[i]);//mettre au centre les autres tuiles
+  		}
+  		tas[i]=null;
+
+  	}
+
+  	return sameColor;
   }
     
+
+
+  	public String toString(){ 
+		String s="";
+		for(int i=0; i<nbTuile;i++){
+			s+=tas[i];
+			if(i==1){
+				s+="\n";
+			}	
+		}
+		s+="\n";
+		return s;
+	}
 
 
 

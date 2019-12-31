@@ -29,6 +29,18 @@ public class Jeu{
 			sac.add(new Tuile("noir"));
 			sac.add(new Tuile("rouge"));
 		}
+		for(int i=0;i<40;i++){
+			sac.add(new Tuile("orange"));
+		}
+		for(int i=0;i<60;i++){
+			sac.add(new Tuile("rouge"));
+		}
+		for (int i=0;i<80;i++){
+			sac.add(new Tuile("noir"));
+		}
+		for(int i=0;i<100;i++){
+			sac.add(new Tuile("blanc"));
+		}
 
 	}
 	public Joueur getJoueur(int i){
@@ -77,12 +89,49 @@ public class Jeu{
 
 	public void preparation(){
 		centre.add(new Tuile("vert"));  // vert=tuile -1
-		for(int i=0;i<fabriques.length;i++){
-			fabriques[i].remplirFabrique(sac);
+		for(int j=0;j<fabriques.length;j++){
+			fabriques[j].remplirFabrique(sac);
+			//System.out.println(fabrique[i]);
+			
 		}
 	}
+	
 	public void offre(){
+		while(isTuileInGame()){
+			for(int i=0; i<joueurs.length;i++){
+				for(int k=0;k<fabriques.length;k++){
+					System.out.println("fabrique "+k+": "+fabriques[k].getTas());
+				}
+				afficherCentre();
 
+				Scanner sc=new Scanner(System.in);
+				System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
+				int fab=sc.nextInt();
+				Scanner sc2=new Scanner(System.in);
+				System.out.println("indiquez la couleur de la tuile que vous voulez :");
+				String tui=sc2.next();
+
+				ArrayList<Tuile> t=fabriques[fab].take(tui,centre);
+				System.out.println("ok");
+
+				System.out.println("mur"+joueurs[i].getMur());
+				System.out.println("ligne"+joueurs[i].getLigne());
+				System.out.println("plancher"+joueurs[i].getPlancher());
+
+				Scanner sc3=new Scanner(System.in);
+				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
+				int lig=sc3.nextInt();
+
+				joueurs[i].getLigne().add(t,lig);
+
+				System.out.println("mur"+joueurs[i].getMur());
+				System.out.println("ligne"+joueurs[i].getLigne());
+				System.out.println("plancher"+joueurs[i].getPlancher());
+
+
+
+			}
+		}
 	}
 	public void decoration(){
 
@@ -102,24 +151,40 @@ public class Jeu{
 			return false;
 		}
 	}
-	public void remplirSac(){
-		for(int i=0;i<this.defausse.size();i++){
-				sac=defausse;
-				defausse=new ArrayList<Tuile>();
-		}
-	}
 
-	public void remplirFabriques(){
-		if(this.sac.size()!=0){
-			for (int i=0; i<fabriques.length;i++){
-				fabriques[i].remplirFabrique(this.sac);
-				System.out.println("fabrique["+i+"] ok");
+	public boolean isTuileInGame(){
+		boolean b=true;
+		boolean t=true;
+		for(int i=0;i<fabriques.length;i++){
+			if(fabriques[i].getTas().length==0){
+				b=false;
+			}else{
+				b=true;
 			}
+			if (isSacEmpty()){
+				t=false;
+			}else{
+				t=true;
+			}
+		}
+		if(b==t && b==false){
+			return false;
 		}else{
-			remplirSac();
+			return true;
 		}
 		
-
 	}
+	public String afficherCentre(){
+		String st="centre:";
+		for (int i=0;i<centre.size() ; i++) {
+			st+=centre.get(i).toString();
+			if(i%3==0){
+				st+="\n";
+			}
+			
+		}
+		return st;
+	}
+
 
 }
