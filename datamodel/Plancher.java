@@ -1,3 +1,5 @@
+package datamodel;
+
 public class Plancher extends Plateau{
 
   public int taille=7;

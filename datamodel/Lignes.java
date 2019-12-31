@@ -1,3 +1,5 @@
+package datamodel;
+
 public class Lignes extends Plateau{
   private int taille=5;
 /*

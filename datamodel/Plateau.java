@@ -1,3 +1,5 @@
+package datamodel;
+
 public class Plateau{
 	protected Case[][] plateau;
 	private final int largeur,longueur;

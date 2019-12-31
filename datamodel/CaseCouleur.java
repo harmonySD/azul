@@ -1,3 +1,5 @@
+package datamodel;
+
 public class CaseCouleur extends Case{
 	private final String couleur;
 
