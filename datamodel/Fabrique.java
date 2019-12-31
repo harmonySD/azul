@@ -31,13 +31,18 @@ public class Fabrique{
 
   }
   // prend toutes les tuiles d'une certaines couleur et retourne une ArrayList
-  public ArrayList<Tuile> take(String c){
+  public ArrayList<Tuile> take(String c, ArrayList<Tuile> center){
   	ArrayList<Tuile> sameColor =new ArrayList<Tuile>();
   	for(int i=0;i<tas.length;i++){
   		if(tas[i].getCouleur().equals(c)){
   			sameColor.add(tas[i]);
+  		}else{
+  			center.add(tas[i]);//mettre au centre les autres tuiles
   		}
+  		tas[i]=null;
+
   	}
+
   	return sameColor;
   }
 

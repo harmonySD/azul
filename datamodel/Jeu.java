@@ -70,7 +70,7 @@ public class Jeu{
 	public void partie(){
 		while(isFullLine()){
 			preparation();
-			//offre();
+			offre();
 			decoration();
 		}
 		fin();
@@ -85,26 +85,50 @@ public class Jeu{
 
 	public void preparation(){
 		centre.add(new Tuile("vert"));  // vert=tuile -1
-		for(int i=0;i<fabriques.length;i++){
+		for(int j=0;j<fabriques.length;j++){
+			fabriques[j].remplirFabrique(sac);
+			//System.out.println(fabrique[i]);
 			
 		}
 	}
 	
-	/*public void offre(){
+	public void offre(){
 		while(isTuileInGame()){
-			for(int i=0; i<joeurs.length;i++){
-				System.out.println(joueurs[i].getFabrique());
+			for(int i=0; i<joueurs.length;i++){
+				for(int k=0;k<fabriques.length;k++){
+					System.out.println("fabrique "+k+": "+fabriques[k].getTas());
+				}
+				afficherCentre();
+
+				Scanner sc=new Scanner(System.in);
+				System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
+				int fab=sc.nextInt();
+				Scanner sc2=new Scanner(System.in);
+				System.out.println("indiquez la couleur de la tuile que vous voulez :");
+				String tui=sc2.next();
+
+				ArrayList<Tuile> t=fabriques[fab].take(tui,centre);
+				System.out.println("ok");
+
+				System.out.println("mur"+joueurs[i].getMur());
+				System.out.println("ligne"+joueurs[i].getLigne());
+				System.out.println("plancher"+joueurs[i].getPlancher());
+
+				Scanner sc3=new Scanner(System.in);
+				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
+				int lig=sc3.nextInt();
+
+				joueurs[i].getLigne().add(t,lig);
+
+				System.out.println("mur"+joueurs[i].getMur());
+				System.out.println("ligne"+joueurs[i].getLigne());
+				System.out.println("plancher"+joueurs[i].getPlancher());
+
+
+
 			}
 		}
-		//tant qu'il reste des tuiles en jeu 
-		//pour tout les joeurs
-		// afficher les fabriques demandder quel tuile il veut 
-		//retirer la tuile qu'il veut 
-		//demander ouu il veut la poser
-		//la poser 
-
-
-	}*/
+	}
 	public void decoration(){
 
 	}
@@ -145,6 +169,17 @@ public class Jeu{
 			return true;
 		}
 		
+	}
+	public String afficherCentre(){
+		String st="centre:";
+		for (int i=0;i<centre.size() ; i++) {
+			st+=centre.get(i).toString();
+			if(i%3==0){
+				st+="\n";
+			}
+			
+		}
+		return st;
 	}
 
 
