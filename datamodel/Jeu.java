@@ -2,7 +2,7 @@ package datamodel;
 
 import java.util.*;
 
-public class Jeu{
+public class Jeu {
 	private final Joueur[] joueurs;
 	private final Fabrique[] fabriques;
 	private ArrayList<Tuile> centre;
@@ -119,6 +119,7 @@ public class Jeu{
 			}
 		}else{
 			remplirSac();
+			remplirFabriques();
 		}
 		
 
