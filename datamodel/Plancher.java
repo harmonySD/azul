@@ -56,7 +56,7 @@ public class Plancher extends Plateau{
   			}else if(i<5){
   				compt-=2;
   			}else if(i<7){
-  				compt-=3
+  				compt-=3;
   			}
   		}
   	}

@@ -140,7 +140,7 @@ public class Jeu{
 		for (int i=0; i<joueurs.length; i++) {
 			for (int j=0;j<5 ;j++ ) {
 				if(joueurs[i].getLigne().isFull(j)){
-					joueurs[i].getLigne().removeline(j,defausse,joueurs[i].getScore(),joueurs[i].getMur());
+					joueurs[i].getLigne().removeLine(j,defausse,joueurs[i].getScore(),joueurs[i].getMur());
 				}
 			}
 			joueurs[i].setScore(joueurs[i].getPlancher().totalPlancher());

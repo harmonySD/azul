@@ -76,6 +76,15 @@ public class Lignes extends Plateau{
     else return true;
   }
 
+  public boolean removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){
+    m.addMur(this,plateau[line][0].getTuile(), line , score);
+    for(int i=1;i<taille;i++){
+      defausse.add(plateau[line][i].getTuile());
+    }
+
+
+  }
+
  
 
 }

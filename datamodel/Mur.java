@@ -29,7 +29,7 @@ public class Mur extends Plateau {
   public int getTaille(){
     return taille;
   }
-  public void addMur(Lignes li,int i,int score){
+  public void addMur(Lignes li,Tuile t,int i,int score){
     int compt =score;
     String couleur=li.plateau[i][0].getCouleur();
       for(int j=0;j<taille;j++){
