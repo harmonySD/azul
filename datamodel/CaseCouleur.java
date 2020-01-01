@@ -1,5 +1,5 @@
 public class CaseCouleur extends Case{
-	private final String couleur;
+	private String couleur;
 
   	public CaseCouleur(String c){
     	super();

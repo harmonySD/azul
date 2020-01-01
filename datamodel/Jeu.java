@@ -137,6 +137,15 @@ public class Jeu{
 		}
 	}
 	public void decoration(){
+		for (int i=0; i<joueurs.length; i++) {
+			for (int j=0;j<5 ;j++ ) {
+				if(joueurs[i].getLigne().isFull(j)){
+					joueurs[i].getMur().addMur(joueurs[i].getLigne(),j);
+
+				}
+			}
+			
+		}
 		//pour chaque joeur 
 		//si ligne complete mettre la tuile sur le mur 
 		//compter et afficher le nombre de pt (regarder si tuile dans le plancher)
