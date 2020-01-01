@@ -103,7 +103,7 @@ public class Jeu{
 					if(fabriques[k].getTas()[0]!=null)
 						System.out.println("fabrique "+k+": "+fabriques[k]);
 				}
-				afficherCentre();
+				System.out.println(afficherCentre());
 
 				Scanner sc=new Scanner(System.in);
 				System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
@@ -126,16 +126,27 @@ public class Jeu{
 				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
 				int lig=sc3.nextInt();
 
-				if(!joueurs[i].getLigne().add(t,lig)){
-					joueurs[i].getPlancher().addPlancher(t);
+				boolean b=joueurs[i].getLigne().add(t,lig);
+				System.out.println(b);
+				if(!b){
+					for (int l=0;l<t.size();l++){
+						if(t.get(l)!=null) System.out.println(t.get(l));
+					}
+					boolean b2=joueurs[i].getPlancher().addPlancher(t);
+					if(!b2){
+						for (int l=0;l<t.size();l++){
+							if(t.get(l)!=null) defausse.add(t.get(l));
+						}
+					}
 				}
 			
 
-				System.out.println("mur"+joueurs[i].getMur());
-				System.out.println("ligne"+joueurs[i].getLigne());
-				System.out.println("plancher"+joueurs[i].getPlancher());
-
-
+				System.out.println("mur");
+				System.out.println(joueurs[i].getMur());
+				System.out.println("ligne");
+				System.out.println(joueurs[i].getLigne());
+				System.out.println("plancher");
+				System.out.println(joueurs[i].getPlancher());
 
 			}
 		}
@@ -193,7 +204,7 @@ public class Jeu{
 		
 	}
 	public String afficherCentre(){
-		String st="centre:";
+		String st="centre :";
 		for (int i=0;i<centre.size() ; i++) {
 			st+=centre.get(i).toString();
 			if(i%3==0){

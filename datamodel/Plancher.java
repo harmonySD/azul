@@ -14,18 +14,33 @@ public class Plancher extends Plateau{
   }
 
   public boolean addPlancher(ArrayList<Tuile> t){
-  	if(this.plateau[0][6] !=null){
+  	if(this.plateau[0][6].getTuileDessus()){
   		System.out.println("Plancher plein");
   	}else{
   		int j=0;
+  		for(int i=0;i<t.size();i++){
+  			if(t.get(i)!=null){
+  				while (plateau[0][j].getTuileDessus()){
+  					j++;
+  				}
+  				Tuile tuile=t.get(i);
+  				plateau[0][j].setTuile(tuile);
+  				t.remove(tuile);
+  				j++;
+  			}
+  		}
+  		/*int j=0;
   		for(int i=0; i<taille;i++){
-  			if(this.plateau[0][i]==null){
+  			if(!this.plateau[0][i].getTuileDessus()){
+  				while(t.get(j)==null){
+					j++;
+				}
   				this.plateau[0][i].setTuile(t.get(j));
   				plateau[0][i].setTuileDessus(true);
   				t.remove(plateau[0][i].getTuile());
   				j++;
   			}
-  		}
+  		}*/
   	}
   	if(!t.isEmpty()) return false;  // permet de rajouter les tuile en trop dans la defausse si cest faux
   	else return true;
