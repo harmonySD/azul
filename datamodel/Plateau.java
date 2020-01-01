@@ -1,4 +1,4 @@
-package datamodel;
+
 
 public class Plateau{
 	protected Case[][] plateau;

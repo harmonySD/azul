@@ -1,4 +1,4 @@
-package vue;
+
 
 import java.util.*;
 
@@ -9,9 +9,9 @@ import java.awt.event.*;
 
 public class Jouer{
 
-	public Jouer(){
-	    ModelJeu model =new ModelJeu();
-	    VueInterface vue=new VueInterface(model);
+	public Jouer(int n){
+	    ModelJeu modele=new ModelJeu("",n);
+	    VueInterface vue=new VueInterface(modele);
 	    vue.pack();
 	    vue.setVisible(true);
   	}
@@ -19,14 +19,16 @@ public class Jouer{
 	public static void main(String[] args){
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Voulez vous jouer sur le terminal (t) ou avec l'interface graphique (i)");  //exception a gerer
-		String n=sc.next();
+		String choix=sc.next();
+		System.out.println("Entrez le nombre de joueur");
+		int n=sc.nextInt();
 		VueGeneral vue;
-		if(n.equals("t")){
-			vue=new VueTerminale();
+		if(choix.equals("t")){
+			vue=new VueTerminale(n);
 			vue.partie();
 		}
 		else {
-			EventQueue.invokeLater( () -> {new Jouer();});
+			EventQueue.invokeLater( () -> {new Jouer(n);});
 		}
 
 	}

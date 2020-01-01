@@ -1,4 +1,4 @@
-package datamodel;
+
 
 public class Mur extends Plateau {
   public int taille=5;

@@ -1,4 +1,4 @@
-package datamodel;
+
 
 public class Tuile{
 	private final String couleur;

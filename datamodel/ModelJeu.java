@@ -1,32 +1,57 @@
-package vue;
+
 
 import java.util.*;
-
 import javax.swing.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.Image;
+import javax.imageio.ImageIO;
 
-public class ImageEditModel{
-  private BufferedImage orange,rouge,blanc,noir,bleu;
-  private UndoManager undoManager=new UndoManager();
+public class ModelJeu{
+	//private Image image;
+    private Jeu jeu;
+  	private boolean start=false;
 
-  public ImageEditModel(String o,String r,String bc,String n,String bu) {
-    try{
-      orange=ImageIO.read(new File(o));
-      rouge=ImageIO.read(new File(r));
-      blanc=ImageIO.read(new File(bc));
-      noir=ImageIO.read(new File(n));
-      bleu=ImageIO.read(new File(bu));
-    }
-    catch(IOException e){
-      System.out.println("Image non trouvé");
-    }
-  }
+    public ModelJeu(String chemin, int n) {
+	  	jeu=new Jeu(n);
+	    /*try{
+	      image=ImageIO.read(new File(chemin));
+	    }
+	    catch(IOException e){
+	      System.out.println("Image non trouvé");
+	    }*/
+	}
 
-  public BufferedImage getImage(){
-    return this.image;
-  }
+	    /*public Image getImage(){
+	   		return this.image;
+	    }*/
+	public Jeu getJeu(){
+	  	return jeu;
+	}
+	public boolean getStart(){
+		return start;
+	}
 
+	public void partie(){
+		while(jeu.isFullLine()){
+			jeu.preparation();
+			offre();
+			decoration();
+		}
+		fin();
+	}
+
+	public void offre(){
+		start=true;
+
+		start=false;
+	}
+	public void decoration(){
+
+	}
+	public void fin(){
+		
+	}
 
 }
