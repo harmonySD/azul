@@ -1,12 +1,18 @@
-
 import java.util.*;
 import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
 import java.io.*;
+//import java.io.File;
+//import java.io.IOException;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import java.awt.Image;
 import javax.imageio.ImageIO;
+//import java.awt.event.MouseEvent;
+import javax.swing.undo.*;
+//import javax.swing.undo.AbstractUndoableEdit;
+
 
 public class VueInterface extends JFrame implements VueGeneral{
 
@@ -21,10 +27,10 @@ public class VueInterface extends JFrame implements VueGeneral{
 		modele=m;
 
 		plateauFabrique=new PlateauFabrique();
-		//plateauJoueur=new PlateauJoueur();
-		getContentPane().setLayout(new GridLayout(0,2));
+		plateauJoueur=new PlateauJoueur();
+		getContentPane().setLayout(new GridLayout(2,0));
     	setContentPane(plateauFabrique);
-    	//setContentPane(plateauJoueur);
+    	setContentPane(plateauJoueur);
 
 		setTitle("Azul");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,20 +46,28 @@ public class VueInterface extends JFrame implements VueGeneral{
 
 	    public void paintComponent(Graphics g){
 	      super.paintComponent(g);
-	      int n=jeu.getFabrique().length;
+	      int n=modele.getJeu().getFabrique().length;
 	   	  int x=0;
 	   	  int y=0;
 	   	  Fabrique[] fabriques=modele.getJeu().getFabrique();
 	      for(int i=0;i<n;i++){
-	      	g.drawOval(x+i*255,y+i*255,255,255);
-	      	for(int j=0;j<fabriques.length;j++){
-	      		String couleur=fabriques[i].getTas()[j].getCouleur();
+	      	g.fillOval(x+i*200,y,200,200);
+	      	for(int j=0;j<4;j++){
+	      		Tuile[] tas=fabriques[i].getTas();
+	      		String couleur="bleu";
+	      		if(tas[j]!=null){
+	      			couleur=tas[j].getCouleur();
+	      			System.out.println(couleur);
+	      		}
 	      		try{
 	      			Image image=ImageIO.read(new File("Images/"+couleur+".png"));
 	      			if(x>x1 && x+60>x1 && y<y1 && y+60>y1){
+	      				System.out.println("coucou6");
 	    				g.drawImage(image,x2,y2,this);
 	    			}
-		      		else g.drawImage(image,x,y,this);  // mettre en carre
+		      		else{
+		      			g.drawImage(image,x+i*200,y,this);  // mettre en carre
+		      		}
 	      		}
 	      		catch(IOException e){
       				System.out.println("Image non trouvé");
@@ -86,17 +100,17 @@ public class VueInterface extends JFrame implements VueGeneral{
 		int x,y; 
 
 	    public void paintComponent(Graphics g){
-	      super.paintComponent(g);
-	      int n=jeu.getFabrique().length;
-	   	  int x=0;
-	   	  int y=0;
-	   	  Fabrique[] fabriques=jeu.getFabrique();
-	      for(int i=0;i<n;i++){
-	      	g.drawOval(x+i*255,y+i*255,255,255);
-	      	for(int j=0;j<fabriques.length;j++){
+		    super.paintComponent(g);
+		    int n=modele.getJeu().getFabrique().length;
+		   	int x=0;
+		   	int y=0;
+		   	Fabrique[] fabriques=modele.getJeu().getFabrique();
+		    for(int i=0;i<n;i++){
+		    	g.drawOval(x+i*200,y,200,200);
+		      	for(int j=0;j<fabriques.length;j++){
 
-	      	}
-	      }
+		      	}
+	        }
 	      //g.drawImage(modele.getImage(),selection.x,selection.y,this);
 	      
 	    }
