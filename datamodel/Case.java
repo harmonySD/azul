@@ -18,7 +18,7 @@ public class Case{
 	public Tuile getTuile(){
 	  	return tuile;
 	}
-	public void setCouleur(Tuile t){
+	public void setTuile(Tuile t){
 	  	tuile=t;
 	}
 	public String toString(){
