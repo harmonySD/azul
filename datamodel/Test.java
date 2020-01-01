@@ -7,7 +7,7 @@ public class Test{
 		System.out.println("Entrez le nombre de joueur");
 		int n=sc.nextInt();
 		Jeu j=new Jeu(n);
-		System.out.println(j.getJoueur(0).getMur());
+		//System.out.println(j.getJoueur(0).getMur());
 		//System.out.println(j.getJoueur(0).getLigne());
 		//System.out.println(j.getJoueur(0).getPlancher());
 		//Fabrique []f=j.getFabrique();
@@ -15,6 +15,7 @@ public class Test{
 			//f[i].remplirFabrique(j.getSac());
 			//System.out.println(f[i]);
 		//}
+		j.partie();
 		
 
 	}

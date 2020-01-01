@@ -51,9 +51,9 @@ public class Fabrique{
   	public String toString(){ 
 		String s="";
 		for(int i=0; i<nbTuile;i++){
-			s+=tas[i];
+			s+=tas[i].toString();
 			if(i==1){
-				s+="\n";
+				s+="\n            ";
 			}	
 		}
 		s+="\n";

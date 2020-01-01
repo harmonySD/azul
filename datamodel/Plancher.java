@@ -32,15 +32,12 @@ public class Plancher extends Plateau{
   }
 
   public void remiseAZero(ArrayList<Tuile> defausse){
-  	ArrayList<Tuile> tmp= new ArrayList<Tuile>();
   	for(int i=0; i<taille;i++){
-  		if(this.plateau[0][i]!=null){
-  			tmp+=this.plateau[0][i];
+  		if(this.plateau[0][i].getTuileDessus()){
+  			defausse.add(this.plateau[0][i].getTuile());
   		}
   	}
-  	defausse.setDefausse(tmp);
   }
-
   // ecrire fonction qui remet le plancher a 0 et met les tuiles dans la defausse
 
 
@@ -48,7 +45,7 @@ public class Plancher extends Plateau{
   	int compt=0;
   	for(int i=0;i<taille;i++){
   		if(this.plateau[0][i].getTuileDessus()==true){
-  			if(this.plateau[0][i].getCouleur()=="vert"){
+  			if(((CaseCouleur)this.plateau[0][i]).getCouleur()=="vert"){
   				compt-=1;
   			}
   			if(i<2){

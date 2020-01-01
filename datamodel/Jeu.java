@@ -72,7 +72,7 @@ public class Jeu{
 	}
 
 	public void partie(){
-		while(isFullLine()){
+		while(!isFullLine()){
 			preparation();
 			offre();
 			decoration();
@@ -100,7 +100,8 @@ public class Jeu{
 		while(isTuileInGame()){
 			for(int i=0; i<joueurs.length;i++){
 				for(int k=0;k<fabriques.length;k++){
-					System.out.println("fabrique "+k+": "+fabriques[k].getTas());
+					if(fabriques[k].getTas()[0]!=null)
+						System.out.println("fabrique "+k+": "+fabriques[k]);
 				}
 				afficherCentre();
 
@@ -108,15 +109,18 @@ public class Jeu{
 				System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
 				int fab=sc.nextInt();
 				Scanner sc2=new Scanner(System.in);
-				System.out.println("indiquez la couleur de la tuile que vous voulez :");
+				System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 				String tui=sc2.next();
 
 				ArrayList<Tuile> t=fabriques[fab].take(tui,centre);
 				System.out.println("ok");
 
-				System.out.println("mur"+joueurs[i].getMur());
-				System.out.println("ligne"+joueurs[i].getLigne());
-				System.out.println("plancher"+joueurs[i].getPlancher());
+				System.out.println("mur");
+				System.out.println(joueurs[i].getMur());
+				System.out.println("ligne");
+				System.out.println(joueurs[i].getLigne());
+				System.out.println("plancher");
+				System.out.println(joueurs[i].getPlancher());
 
 				Scanner sc3=new Scanner(System.in);
 				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
@@ -156,7 +160,7 @@ public class Jeu{
 			System.out.println(joueurs[i].getNom()+" : "+joueurs[i].getScore());
 			if(j.getScore()<joueurs[i].getScore()) j=joueurs[i];
 		}
-		System.out.println(j.getNom()+"a gagné avec un score de "+ j.getScore());
+		System.out.println(j.getNom()+" a gagné avec un score de "+ j.getScore());
 	}
 	public boolean isSacEmpty(){
 		if(this.sac.size()==0){

@@ -10,6 +10,7 @@ public class Lignes extends Plateau{
   	public String toString(){ 
 		String s="";
 		for(int i=0; i<taille;i++){
+      s+=i+" : ";
 			for(int j=0;j<i+1;j++){
 				s+=plateau[i][j].toString();	
 			}
@@ -76,13 +77,11 @@ public class Lignes extends Plateau{
     else return true;
   }
 
-  public boolean removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){
+  public void removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){
     m.addMur(this,plateau[line][0].getTuile(), line , score);
     for(int i=1;i<taille;i++){
       defausse.add(plateau[line][i].getTuile());
     }
-
-
   }
 
  

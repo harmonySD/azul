@@ -31,15 +31,16 @@ public class Mur extends Plateau {
   }
   public void addMur(Lignes li,Tuile t,int i,int score){
     int compt =score;
-    String couleur=li.plateau[i][0].getCouleur();
+    String couleur=((CaseCouleur)li.plateau[i][0]).getCouleur();
       for(int j=0;j<taille;j++){
-        if(plateau[i][j].getCouleur()==couleur){
-          plateau[i][j].setCouleur("ok");
+        if(((CaseCouleur)plateau[i][j]).getCouleur()==couleur){
+          plateau[i][j].setTuile(t);
+          plateau[i][j].setTuileDessus(true);
           compt++;
-          if(plateau[i][j-1].getTuileDessus) compt++;
-          if(plateau[i][j+1].getTuileDessus) compt++;
-          if(plateau[i-1][j].getTuileDessus) compt++;
-          if(plateau[i+1][j].getTuileDessus) compt++;
+          if(plateau[i][j-1].getTuileDessus()) compt++;  // marche pas si la tuile a deux ou plus de voisins sur la droite, etc
+          if(plateau[i][j+1].getTuileDessus()) compt++;
+          if(plateau[i-1][j].getTuileDessus()) compt++;
+          if(plateau[i+1][j].getTuileDessus()) compt++;
         }
       }
   }
