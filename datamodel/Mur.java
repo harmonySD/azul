@@ -29,28 +29,17 @@ public class Mur extends Plateau {
   public int getTaille(){
     return taille;
   }
-  public void addMur(Lignes li){//dans ligne il faudra regarder si la couleur n'est pas deja sur le mur
+  public void addMur(Lignes li){
     for(int i=0;i<taille;i++){
       if(li.isFull(i)){
-        String couleur=li[0][0].getCouleur();
+        String couleur=li[i][0].getCouleur();
         for(int j=0;j<taille;j++){
-          for(int k=0;k<taille;k++){
-            if(i==j){
-              //regarde  si la case a la position k est de a meme couleur qeu couleur
-              //si oui setcouleur de la case a la position k
-
-            }
-          }
+         if(getPlateau[i][j].getCouleur==couleur){
+          getPlateau[i][j].setCouleur("ok");
+         }
         }
       }
     }
-
-    //pour toutes les lignes 
-    //if isfull(i)
-    //regarder la couler de la tuile 
-    //changer la couleur avec setcouleur en ok 
-
-
   }
 
 }
