@@ -29,13 +29,18 @@ public class Mur extends Plateau {
   public int getTaille(){
     return taille;
   }
-  public void addMur(Lignes li,int i){
+  public void addMur(Lignes li,int i,int score){
+    int compt =score;
     String couleur=li.plateau[i][0].getCouleur();
       for(int j=0;j<taille;j++){
         if(plateau[i][j].getCouleur()==couleur){
           plateau[i][j].setCouleur("ok");
+          compt++;
+          if(plateau[i][j-1].getTuileDessus) compt++;
+          if(plateau[i][j+1].getTuileDessus) compt++;
+          if(plateau[i-1][j].getTuileDessus) compt++;
+          if(plateau[i+1][j].getTuileDessus) compt++;
         }
       }
   }
-
 }

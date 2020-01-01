@@ -47,6 +47,8 @@ public class Joueur{
 		return false;
 	}
 
+	
+
 
 
 
