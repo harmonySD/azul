@@ -10,11 +10,11 @@ public class Test{
 		System.out.println(j.getJoueur(0).getMur());
 		//System.out.println(j.getJoueur(0).getLigne());
 		//System.out.println(j.getJoueur(0).getPlancher());
-		Fabrique []f=j.getFabrique();
-		for(int i=0;i<f.length;i++){
-			f[i].remplirFabrique(j.getSac());
-			System.out.println(f[i]);
-		}
+		//Fabrique []f=j.getFabrique();
+	//	for(int i=0;i<f.length;i++){
+			//f[i].remplirFabrique(j.getSac());
+			//System.out.println(f[i]);
+		//}
 		
 
 	}
