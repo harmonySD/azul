@@ -63,22 +63,40 @@ public class Lignes extends Plateau{
       System.out.println("Ligne complete");
       return false;
     } 
-    
     if (isEmptyLine(line)){
-    	for(int i=0;i<line+1;i++){
-    		this.plateau[line][i].setTuile(t.get(0));
-    		plateau[line][i].setTuileDessus(true);
-    		t.remove(this.plateau[line][i].getTuile());
+      int n=line+1;
+      System.out.println(t.size());
+      if(n>t.size()) n=t.size();
+      System.out.println(n);
+    	for(int i=0;i<n;i++){
+        if(t.get(i)!=null){
+      		this.plateau[line][i].setTuile(t.get(i));
+      		plateau[line][i].setTuileDessus(true);
+      		t.remove(this.plateau[line][i].getTuile());
+        }
     	}
-    	
-    } else{
+    }	 
+    else{
     	if (!t.get(0).getCouleur().equals(plateau[line][0])){// je voudrais dire si ce n'est pas vide et que la couleur de t n'est pas la meme qeu la couleur deja presente sur la ligne 
-      		System.out.println("Mauvaise ligne, pas la bonne couleur");  // je pense il faut le gerer dans une exception
-      	}
+      	System.out.println("Mauvaise ligne, pas la bonne couleur");  // je pense il faut le gerer dans une exception
+      }
+      else{
+        int i=0;
+        while(plateau[line][i].getTuileDessus()){
+          i++;
+        }
+        for(int j=i;j<line+1;j++){
+          if(t.get(j)!=null){
+            this.plateau[line][j].setTuile(t.get(j));
+            plateau[line][j].setTuileDessus(true);
+            t.remove(this.plateau[line][j].getTuile());
+          }
+        }
+      }
     }
 
     if(!t.isEmpty()){
-      System.out.println("pb");
+      //System.out.println("pb");
       //si t n'est paqs vide ajouter le reste   au plancher 
       return false;
       

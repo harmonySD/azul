@@ -133,16 +133,11 @@ public class Jeu{
 
 					t=take(tui);
 					System.out.println("okcent");
-
-
 				}
 				else{
 
 					//retourner exeption
 				}
-
-				
-
 
 
 				System.out.println("mur");
@@ -155,7 +150,9 @@ public class Jeu{
 				Scanner sc3=new Scanner(System.in);
 				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
 				int lig=sc3.nextInt();
-				if(joueurs[i].getLigne().add(t,lig)==false){
+				boolean b=joueurs[i].getLigne().add(t,lig);
+				System.out.println(b);
+				if(!b){
 					System.out.println("2");
 					joueurs[i].getPlancher().addPlancher(t);
 					System.out.println(joueurs[i].getPlancher());
@@ -238,7 +235,7 @@ public class Jeu{
 	public ArrayList<Tuile> take(String c){
   	ArrayList<Tuile> sameColor =new ArrayList<Tuile>();
   	for(int i=0;i<centre.size();i++){
-  		if(centre.get(i).getCouleur().equals(c)){
+  		if(centre.get(i)!=null && centre.get(i).getCouleur().equals(c)){
   			sameColor.add(centre.get(i));
   			centre.remove(i);
   		}
