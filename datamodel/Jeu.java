@@ -168,6 +168,7 @@ public class Jeu {
 		}
 	}
 	public void decoration(){
+		System.out.println("decoration");
 		for (int i=0; i<joueurs.length; i++) {
 			for (int j=0;j<5 ;j++ ) {
 				boolean b=joueurs[i].getLigne().isFull(j);
@@ -184,13 +185,14 @@ public class Jeu {
 			defausse.remove(tuile);
 		}
 		for(int i=0;i<joueurs.length;i++){
-		System.out.println("Joueur : "+joueurs[i].getNom());
-		System.out.println("Mur");
-		System.out.println(joueurs[i].getMur());
-		System.out.println("Ligne");
-		System.out.println(joueurs[i].getLigne());
-		System.out.println("Plancher");
-		System.out.println(joueurs[i].getPlancher());}
+			System.out.println("Joueur : "+joueurs[i].getNom());
+			System.out.println("Mur");
+			System.out.println(joueurs[i].getMur());
+			System.out.println("Ligne");
+			System.out.println(joueurs[i].getLigne());
+			System.out.println("Plancher");
+			System.out.println(joueurs[i].getPlancher());
+		}
 
 		//remmettre a 0 les lignes full
 		//compter et afficher le nombre de point (regarder si tuile dans le plancher)
@@ -215,14 +217,11 @@ public class Jeu {
 	public boolean isTuileInGame(){
 		boolean b=true;
 		for(int i=0;i<fabriques.length;i++){
-			System.out.println("for:"+b);
 			if(fabriques[i].tasVide()){
 				b=false;
-				System.out.println("if:"+b);
 			}
 			else return true;
 		}
-		System.out.println("final"+(b || !centre.isEmpty()));
 		return (b || !centre.isEmpty());
 		
 	}

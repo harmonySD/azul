@@ -355,7 +355,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 		public void paintComponent(Graphics g){
 			// Appel de la méthode paintComponent de la classe parente
 			super.paintComponent(g);
-			setBorder(new TitledBorder(new EtchedBorder(), jeu.getJoueur()[numJoueur].getNom()));
+			setBorder(new TitledBorder(new EtchedBorder(), jeu.getJoueur()[numJoueur].getNom()+ " score : "+jeu.getJoueur()[numJoueur].getScore()));
 			plateauLigne.repaint();
 			plateauPlancher.repaint();
 			plateauMur.repaint();	
