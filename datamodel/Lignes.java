@@ -41,7 +41,7 @@ public class Lignes extends Plateau{
     return b;
   }
 
-  public boolean isEmpty(int line){
+  public boolean isEmptyLine(int line){
     boolean b=false;
     for (int i=0;i<taille; i++) {
       for (int j=0; j<i+1; j++) {
@@ -59,9 +59,12 @@ public class Lignes extends Plateau{
   }
 
   public boolean add(ArrayList<Tuile> t, int line){
-    if (isFull(line)) return false;
+    if (isFull(line)){
+      System.out.println("Ligne complete");
+      return false;
+    } 
     
-    if (isEmpty(line)){
+    if (isEmptyLine(line)){
     	for(int i=0;i<line+1;i++){
     		this.plateau[line][i].setTuile(t.get(0));
     		plateau[line][i].setTuileDessus(true);
@@ -73,8 +76,16 @@ public class Lignes extends Plateau{
       		System.out.println("Mauvaise ligne, pas la bonne couleur");  // je pense il faut le gerer dans une exception
       	}
     }
-    if(!t.isEmpty()) return false;  // permet dajouter au plancher le reste qui n'a pas ete ajouter
-    else return true;
+
+    if(!t.isEmpty()){
+      System.out.println("pb");
+      //si t n'est paqs vide ajouter le reste   au plancher 
+      return false;
+      
+    }else{
+      return true;
+    } // permet dajouter au plancher le reste qui n'a pas ete ajouter
+    
   }
 
   public void removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){

@@ -13,7 +13,8 @@ public class Plancher extends Plateau{
     return taille;
   }
 
-  public boolean addPlancher(ArrayList<Tuile> t){
+  public void addPlancher(ArrayList<Tuile> t){
+  	System.out.println("tchoutchou");
   	if(this.plateau[0][6].getTuileDessus()){
   		System.out.println("Plancher plein");
   	}else{
@@ -25,6 +26,8 @@ public class Plancher extends Plateau{
   				}
   				Tuile tuile=t.get(i);
   				plateau[0][j].setTuile(tuile);
+
+  				plateau[0][j].setTuileDessus(true);
   				t.remove(tuile);
   				j++;
   			}
@@ -42,8 +45,8 @@ public class Plancher extends Plateau{
   			}
   		}*/
   	}
-  	if(!t.isEmpty()) return false;  // permet de rajouter les tuile en trop dans la defausse si cest faux
-  	else return true;
+  	//if(!t.isEmpty()) return false;  // permet de rajouter les tuile en trop dans la defausse si cest faux
+  //	else return true;
   }
 
   public void remiseAZero(ArrayList<Tuile> defausse){

@@ -125,21 +125,11 @@ public class Jeu{
 				Scanner sc3=new Scanner(System.in);
 				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
 				int lig=sc3.nextInt();
-
-				boolean b=joueurs[i].getLigne().add(t,lig);
-				System.out.println(b);
-				if(!b){
-					for (int l=0;l<t.size();l++){
-						if(t.get(l)!=null) System.out.println(t.get(l));
-					}
-					boolean b2=joueurs[i].getPlancher().addPlancher(t);
-					if(!b2){
-						for (int l=0;l<t.size();l++){
-							if(t.get(l)!=null) defausse.add(t.get(l));
-						}
-					}
+				if(joueurs[i].getLigne().add(t,lig)==false){
+					System.out.println("2");
+					joueurs[i].getPlancher().addPlancher(t);
+					System.out.println(joueurs[i].getPlancher());
 				}
-			
 
 				System.out.println("mur");
 				System.out.println(joueurs[i].getMur());
