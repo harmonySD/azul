@@ -1,5 +1,5 @@
 public class CaseCouleur extends Case{
-	private final String couleur;
+	private String couleur;
 
   	public CaseCouleur(String c){
     	super();
@@ -7,8 +7,11 @@ public class CaseCouleur extends Case{
   	}
 
   	public String getCouleur(){
-  		System.out.println("a");
 		return couleur;
+	}
+
+	public void setCouleur(String c){
+		couleur=c;
 	}
 
   public String toString(){
@@ -27,6 +30,9 @@ public class CaseCouleur extends Case{
 	}
 	if(this.couleur=="bleu"){
 		s+="🚹";
+	}
+	if(this.couleur=="ok"){
+		s+="x";
 	}
 			
 	return s;
