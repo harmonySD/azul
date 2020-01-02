@@ -18,19 +18,20 @@ public class VueInterface extends JFrame implements VueGeneral{
 
 	public ModelJeu modele; 
 	private PlateauFabrique plateauFabrique;
-	private PlateauJoueur plateauJoueur;
+	private PlateauLigne plateauLigne;
 	private JLabel text;
 
 	private Jeu jeu;
 
 	public VueInterface(ModelJeu m){
 		modele=m;
+		jeu=modele.getJeu();
 
 		plateauFabrique=new PlateauFabrique();
-		plateauJoueur=new PlateauJoueur();
-		getContentPane().setLayout(new GridLayout(2,0));
-    	setContentPane(plateauFabrique);
-    	setContentPane(plateauJoueur);
+		plateauLigne=new PlateauLigne();
+		getContentPane().setLayout(new GridLayout(0,1));
+    	getContentPane().add(plateauFabrique);
+    	getContentPane().add(plateauLigne);
 
 		setTitle("Azul");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,22 +52,24 @@ public class VueInterface extends JFrame implements VueGeneral{
 	   	  int y=0;
 	   	  Fabrique[] fabriques=modele.getJeu().getFabrique();
 	      for(int i=0;i<n;i++){
-	      	g.fillOval(x+i*200,y,200,200);
+	      	g.fillOval(x+i*150,y,150,150);
 	      	for(int j=0;j<4;j++){
-	      		Tuile[] tas=fabriques[i].getTas();
+	      		Tuile[] tas=modele.getJeu().getFabrique()[i].getTas();
 	      		String couleur="bleu";
 	      		if(tas[j]!=null){
 	      			couleur=tas[j].getCouleur();
-	      			System.out.println(couleur);
 	      		}
 	      		try{
 	      			Image image=ImageIO.read(new File("Images/"+couleur+".png"));
 	      			if(x>x1 && x+60>x1 && y<y1 && y+60>y1){
-	      				System.out.println("coucou6");
 	    				g.drawImage(image,x2,y2,this);
 	    			}
 		      		else{
-		      			g.drawImage(image,x+i*200,y,this);  // mettre en carre
+		      			int a=y+22;
+		      			int b=x+i*150+22;
+		      			if(j==2 || j==3) a+=50;
+		      			if(j==1 || j==3) b+=50;   
+		      			g.drawImage(image,b,a,this);  // mettre en carre
 		      		}
 	      		}
 	      		catch(IOException e){
@@ -96,37 +99,46 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    }
 	}
 
-	class PlateauJoueur extends JPanel{
+	class PlateauLigne extends JPanel{
 		int x,y; 
+		Paneau[][] paneaux;
 
 	    public void paintComponent(Graphics g){
 		    super.paintComponent(g);
-		    int n=modele.getJeu().getFabrique().length;
-		   	int x=0;
-		   	int y=0;
-		   	Fabrique[] fabriques=modele.getJeu().getFabrique();
-		    for(int i=0;i<n;i++){
-		    	g.drawOval(x+i*200,y,200,200);
-		      	for(int j=0;j<fabriques.length;j++){
+		    Tuile tuile=jeu.getLigne().getPlateau
 
-		      	}
-	        }
 	      //g.drawImage(modele.getImage(),selection.x,selection.y,this);
 	      
 	    }
 
-	    public PlateauJoueur(){
-	      //this.setPreferredSize(new Dimension(model.getImage().getWidth(),model.getImage().getHeight()));
-	      addMouseListener(new MouseAdapter(){
-	      	
-	      });
-	      //addMouseMotionListener(selection);
+	    public PlateauLigne(){
+	    	paneaux=new Paneau[5][];
+	    	JPanel[] tabPanel=new JPanel[5];
+	    	for(int i=0;i<5;i++){
+	    		paneaux[i]=new Paneau[i+1];
+	    		tabPanel[i]=new JPanel();
+	    		tabPanel[i].setLayout(new BoxLayout(tabPanel[i],BoxLayout.LINE_AXIS));
+	    		for(int j=0;j<i+1;j++){
+	    			paneaux[i][j]=new Paneau(i,j);
+	    			tabPanel[i].add(paneaux[i][j]);
+
+	    		}
+	    	}
+	    	this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+	    	for(int i=0;i<tabPanel.length;i++){
+	    		this.add(tabPanel[i]);
+	    	}
+
+		    //this.setPreferredSize(new Dimension(model.getImage().getWidth(),model.getImage().getHeight()));
+		    addMouseListener(new MouseAdapter(){
+		      	
+		    });
 	    }
 
 	    public void deplacementTuileLigne(Paneau p){
-	    	x=p.colone*60;
-	    	y=p.ligne*60;
-	    	plateauJoueur.repaint();
+	    	x=p.colone*50;
+	    	y=p.ligne*50;
+	    	plateauLigne.repaint();
 	    }
 
 
@@ -138,30 +150,89 @@ public class VueInterface extends JFrame implements VueGeneral{
 			public Paneau(int l,int c){
 				ligne=l;
 				colone=c;
-				setSize(60,60);
+				setSize(50,50);
 				setBackground(Color.lightGray);
+				setBorder(BorderFactory.createLineBorder(Color.black));
 				
 				// Ajoute un MouseListener (écouteur de souris) qui va
 				// intercepter les clicks sur le Paneau
 				addMouseListener(new MouseAdapter(){
-						public void mouseReleased(MouseEvent e){
-							deplacementTuileLigne((Paneau)e.getSource());
-						}
-					});
-			}
-			
-			// Méthode qui est appelé à la création d'un Paneau et
-			// dès que l'on fait un Paneau.repaint()
-			
-			public void paintComponent(Graphics g){
-				// Appel de la méthode paintComponent de la classe parente
-				super.paintComponent(g);
-				
-				
+					public void mouseReleased(MouseEvent e){
+						deplacementTuileLigne((Paneau)e.getSource());
+					}
+				});
 			}
 			
 		}
 
+	}
+
+	class PlateauMur extends JPanel{
+
+	    public void paintComponent(Graphics g){
+		    super.paintComponent(g);
+
+		    int n=jeu.getMur().length;
+		   	int x=0;
+		   	int y=0;
+		    for(int i=0;i<n;i++){
+		    	for(int j=0;j<n;j++){
+
+		    	}
+		      	
+	        }
+	      //g.drawImage(modele.getImage(),selection.x,selection.y,this);
+	      
+	    }
+
+	    public PlateauMur(){
+	    }
+
+	    class Paneau extends JPanel{
+			String couleur;
+			int ligne,colone;
+			
+			// Constructeur de Paneau
+			// Reçoit une référence à la partie et son indice
+			public Paneau(String c,int l,int c){
+				couleur =c;
+				setSize(50,50);
+				setBackground(Color.lightGray);
+				setBorder(BorderFactory.createLineBorder(Color.black));
+
+			
+			public void paintComponent(Graphics g){
+				// Appel de la méthode paintComponent de la classe parente
+				super.paintComponent(g);
+				try{
+	      			Image image=ImageIO.read(new File("Images/"+couleur+"bis.png"));
+	      			g.drawImage(image,x,y,this);
+	      		}
+	      		catch(IOException e){
+      				System.out.println("Image non trouvé");
+    			}
+			}
+		}
+
+	}
+
+	class PlateauJoueur extends JPanel{
+		PlateauMur plateauMur;
+		PlateauLigne plateauLigne;
+		PlateauPlancher plateauPlancher;
+
+		public PlateauJoueur(){
+			plateauMur=new PlateauMur();
+			plateauLigne=new PlateauLigne();
+			plateauPlancher=new PlateauPlancher();
+		}
+		public void paintComponent(Graphics g){
+			// Appel de la méthode paintComponent de la classe parente
+			super.paintComponent(g);
+			plateauLigne.repaint();
+			plateauPlancher.repaint();
+			plateauMur.repaint();	
+		}
 	}
 
     // SELECTION   https://www.daniweb.com/programming/software-development/threads/342036/how-to-select-images-by-using-a-rectangular-area

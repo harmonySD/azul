@@ -13,8 +13,9 @@ public class ModelJeu{
     private Jeu jeu;
   	private boolean start=false;
 
-    public ModelJeu(String chemin, int n) {
+    public ModelJeu(int n) {
 	  	jeu=new Jeu(n);
+	  	jeu.preparation();
 	    /*try{
 	      image=ImageIO.read(new File(chemin));
 	    }

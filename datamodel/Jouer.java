@@ -10,7 +10,7 @@ import java.awt.event.*;
 public class Jouer{
 
 	public Jouer(int n){
-	    ModelJeu modele=new ModelJeu("",n);
+	    ModelJeu modele=new ModelJeu(n);
 	    VueInterface vue=new VueInterface(modele);
 	    vue.pack();
 	    vue.setVisible(true);
