@@ -1,6 +1,8 @@
+
+
 import java.util.*;
 
-public class Jeu{
+public class Jeu {
 	private final Joueur[] joueurs;
 	private final Fabrique[] fabriques;
 	private ArrayList<Tuile> centre;
@@ -228,6 +230,9 @@ public class Jeu{
 			}else{
 				t=true;
 			}
+		}else{
+			remplirSac();
+			remplirFabriques();
 		}
 		if(b==t && b==false){
 			return false;
