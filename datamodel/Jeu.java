@@ -105,6 +105,14 @@ public class Jeu{
 				}
 				System.out.println(afficherCentre());
 
+				//demander si prendre dans Fabrique ou centre 
+				Scanner sc0= new Scanner(System.in);
+				System.out.println("vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
+				int rep=sc0.nextInt();
+
+				ArrayList<Tuile> t= new ArrayList<Tuile>();
+
+				if(rep==1){
 				Scanner sc=new Scanner(System.in);
 				System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
 				int fab=sc.nextInt();
@@ -112,8 +120,30 @@ public class Jeu{
 				System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 				String tui=sc2.next();
 
-				ArrayList<Tuile> t=fabriques[fab].take(tui,centre);
-				System.out.println("ok");
+
+
+				t=(fabriques[fab].take(tui,centre));
+				System.out.println("okfab");
+
+				}
+				else if(rep==2){
+					Scanner sc4= new Scanner(System.in);
+					System.out.println("indiquezla couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+					String tui=sc4.next();
+
+					t=take(tui);
+					System.out.println("okcent");
+
+
+				}
+				else{
+
+					//retourner exeption
+				}
+
+				
+
+
 
 				System.out.println("mur");
 				System.out.println(joueurs[i].getMur());
@@ -204,6 +234,18 @@ public class Jeu{
 		}
 		return st;
 	}
+
+	public ArrayList<Tuile> take(String c){
+  	ArrayList<Tuile> sameColor =new ArrayList<Tuile>();
+  	for(int i=0;i<centre.size();i++){
+  		if(centre.get(i).getCouleur().equals(c)){
+  			sameColor.add(centre.get(i));
+  			centre.remove(i);
+  		}
+  	}
+
+  	return sameColor;
+  }
 
 
 }
