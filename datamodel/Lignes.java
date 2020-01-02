@@ -49,10 +49,12 @@ public class Lignes extends Plateau{
     if (isEmptyLine(line)){
       int n=Math.min(line+1,t.size());
     	for(int i=0;i<n;i++){
-          Tuile tuile=t.get(0);
+        Tuile tuile=t.get(0);
+        if(!tuile.getCouleur().equals("vert")){
       		this.plateau[line][i].setTuile(tuile);
       		plateau[line][i].setTuileDessus(true);
       		t.remove(tuile); 
+        }
     	}
     }	 
     else{

@@ -37,16 +37,20 @@ public class Fabrique{
   		if(tas[i].getCouleur().equals(c)){
   			sameColor.add(tas[i]);
   		}else{
-  			center.add(tas[i]);//mettre au centre les autres tuiles
+  			center.add(tas[i]); //mettre au centre les autres tuiles
   		}
   		tas[i]=null;
-
   	}
 
   	return sameColor;
   }
-    
 
+  public boolean tasVide(){
+    for (int i=0;i<tas.length;i++){
+      if(tas[i]!=null) return false;
+    }
+    return true;
+  }
 
   	public String toString(){ 
 		String s="";

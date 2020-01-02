@@ -89,17 +89,20 @@ public class Jeu {
 	
 	public void offre(){
 		while(isTuileInGame()){
-			for(int i=0; i<joueurs.length;i++){
+			System.out.println(isTuileInGame());
+			for(int i=0; isTuileInGame() && i<joueurs.length ;i++){
 				for(int k=0;k<fabriques.length;k++){
-					if(fabriques[k].getTas()[0]!=null)
+					if(!fabriques[k].tasVide())
 						System.out.println("fabrique "+k+": "+fabriques[k]);
 				}
 				System.out.println(afficherCentre());
-				System.out.println(joueurs[i].getNom());
-				System.out.println("mur");
+				System.out.println("Joueur : "+joueurs[i].getNom());
+				System.out.println("Mur");
 				System.out.println(joueurs[i].getMur());
-				System.out.println("ligne");
+				System.out.println("Ligne");
 				System.out.println(joueurs[i].getLigne());
+				System.out.println("Plancher");
+				System.out.println(joueurs[i].getPlancher());
 
 				//demander si prendre dans Fabrique ou centre 
 				Scanner sc0= new Scanner(System.in);
@@ -117,7 +120,6 @@ public class Jeu {
 					String tui=sc2.next();
 
 					t=(fabriques[fab].take(tui,centre));
-					System.out.println("okfab");
 
 				}
 				else if(rep==2){
@@ -130,20 +132,17 @@ public class Jeu {
 						t.add(centre.get(0));
 						centre.remove(0);
 					}
-					System.out.println("okcent");
 				}
 				else{
 
 					//retourner exeption
 				}
 
-
-
-				System.out.println("mur");
+				System.out.println("Mur");
 				System.out.println(joueurs[i].getMur());
-				System.out.println("ligne");
+				System.out.println("Ligne");
 				System.out.println(joueurs[i].getLigne());
-				System.out.println("plancher");
+				System.out.println("Plancher");
 				System.out.println(joueurs[i].getPlancher());
 
 				Scanner sc3=new Scanner(System.in);
@@ -151,7 +150,6 @@ public class Jeu {
 				int lig=sc3.nextInt();
 				boolean b=joueurs[i].getLigne().add(t,lig);
 				if(!b){
-					System.out.println("2");
 					if(!joueurs[i].getPlancher().addPlancher(t)) {
 						for(int a=0;a<t.size();a++){
 							defausse.add(t.get(a));
@@ -166,7 +164,6 @@ public class Jeu {
 				System.out.println(joueurs[i].getLigne());
 				System.out.println("plancher");
 				System.out.println(joueurs[i].getPlancher());
-
 			}
 		}
 	}
@@ -186,6 +183,15 @@ public class Jeu {
 			sac.add(tuile);
 			defausse.remove(tuile);
 		}
+		for(int i=0;i<joueurs.length;i++){
+		System.out.println("Joueur : "+joueurs[i].getNom());
+		System.out.println("Mur");
+		System.out.println(joueurs[i].getMur());
+		System.out.println("Ligne");
+		System.out.println(joueurs[i].getLigne());
+		System.out.println("Plancher");
+		System.out.println(joueurs[i].getPlancher());}
+
 		//remmettre a 0 les lignes full
 		//compter et afficher le nombre de point (regarder si tuile dans le plancher)
 
@@ -207,38 +213,17 @@ public class Jeu {
 	}
 
 	public boolean isTuileInGame(){
-		boolean b=false;
+		boolean b=true;
 		for(int i=0;i<fabriques.length;i++){
-			if(fabriques[i].getTas()[0]==null){
-				b=true;
-			}
-			else b=false;
-		}
-
-		return (!(b && centre.isEmpty()));
-
-		/*boolean b=true;
-		boolean t=true;
-		for(int i=0;i<fabriques.length;i++){
-			if(fabriques[i].getTas().length==0){
+			System.out.println("for:"+b);
+			if(fabriques[i].tasVide()){
 				b=false;
-			}else{
-				b=true;
+				System.out.println("if:"+b);
 			}
-			if (isSacEmpty()){
-				t=false;
-			}else{
-				t=true;
-			}
-		}else{
-			remplirSac();
-			remplirFabriques();
+			else return true;
 		}
-		if(b==t && b==false){
-			return false;
-		}else{
-			return true;
-		}*/
+		System.out.println("final"+(b || !centre.isEmpty()));
+		return (b || !centre.isEmpty());
 		
 	}
 	public String afficherCentre(){

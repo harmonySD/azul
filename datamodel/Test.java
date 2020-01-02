@@ -34,12 +34,10 @@ public class Test{
 		j2.getLigne().getPlateau()[1][1].setTuile(new Tuile("rouge"));
 		j2.getLigne().getPlateau()[1][1].setTuileDessus(true);
 
-		/*jeu.getCentre().remove(0);
-		for (int i=0;i<jeu.getFabrique().length;i++){
-			for(int j=0;j<jeu.getFabrique()[i].getTas().length;j++){
-				jeu.getFabrique()[i].getTas()[j]=null;
-			}
-		}*/
+		//jeu.getCentre().add(new Tuile("orange"));
+		Tuile[] t={new Tuile("orange"),new Tuile("orange"),new Tuile("orange"),new Tuile("orange")};
+		//jeu.getFabrique()[0].setTas(t);
+
 		System.out.println(j1.getMur());
 		System.out.println(j1.getLigne());
 		System.out.println(j1.getPlancher());
@@ -48,6 +46,7 @@ public class Test{
 		System.out.println(j1.getLigne());
 		System.out.println(j1.getPlancher());
 		jeu.fin();
+		System.out.println(jeu.isTuileInGame());
 
 	}
 

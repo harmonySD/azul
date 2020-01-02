@@ -37,10 +37,10 @@ public class Mur extends Plateau {
         plateau[line][j].setTuile(t);
         plateau[line][j].setTuileDessus(true);
         compt++;
-        if(j!=0 && plateau[line][j-1].getTuileDessus()) compt++;  // marche pas si la tuile a deux ou plus de voisins sur la droite, etc
-        if(j!=taille && plateau[line][j+1].getTuileDessus()) compt++;
-        if(line!=0 && plateau[line-1][j].getTuileDessus()) compt++;
-        if(line!=taille && plateau[line+1][j].getTuileDessus()) compt++;
+        if(j>0 && plateau[line][j-1].getTuileDessus()) compt++;  // marche pas si la tuile a deux ou plus de voisins sur la droite, etc
+        if(j<taille-1 && plateau[line][j+1].getTuileDessus()) compt++;
+        if(line>0 && plateau[line-1][j].getTuileDessus()) compt++;
+        if(line<taille-1 && plateau[line+1][j].getTuileDessus()) compt++;
       }
     }
     return compt;

@@ -13,15 +13,6 @@ public class VueTerminale implements VueGeneral{
 	public void partie(){
 		jeu.partie();
 	}
-	public void offre(){
-
-	}
-	public void decoration(){
-
-	}
-	public void fin(){
-
-	}
 
 
 }
