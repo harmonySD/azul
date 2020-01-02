@@ -113,22 +113,20 @@ public class Jeu{
 				ArrayList<Tuile> t= new ArrayList<Tuile>();
 
 				if(rep==1){
-				Scanner sc=new Scanner(System.in);
-				System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
-				int fab=sc.nextInt();
-				Scanner sc2=new Scanner(System.in);
-				System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
-				String tui=sc2.next();
+					Scanner sc=new Scanner(System.in);
+					System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
+					int fab=sc.nextInt();
+					Scanner sc2=new Scanner(System.in);
+					System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+					String tui=sc2.next();
 
-
-
-				t=(fabriques[fab].take(tui,centre));
-				System.out.println("okfab");
+					t=(fabriques[fab].take(tui,centre));
+					System.out.println("okfab");
 
 				}
 				else if(rep==2){
 					Scanner sc4= new Scanner(System.in);
-					System.out.println("indiquezla couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+					System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 					String tui=sc4.next();
 
 					t=take(tui);
