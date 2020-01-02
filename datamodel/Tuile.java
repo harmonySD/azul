@@ -11,22 +11,22 @@ public class Tuile{
 
 	public String toString(){
 		if(couleur=="orange"){
-    			return "🔶 ";
+    			return "🔶";
 		}
 		else if(couleur=="rouge") {
-			return "🔴 ";
+			return "🔴";
 		}
 		else if(couleur=="noir") {
-			return "🔳 ";
+			return "🔳";
 		}
 		else if(couleur=="blanc"){
-			return "🔲 ";
+			return "🔲";
 		}
 		else if(couleur=="bleu"){
-			return "🔵 ";
+			return "🔵";
 		}
 		else if (couleur=="vert"){
-			return "-1 ";
+			return "-1";
 		}
 		else{
 			return "erreur";

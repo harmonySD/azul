@@ -29,19 +29,20 @@ public class Mur extends Plateau {
   public int getTaille(){
     return taille;
   }
-  public void addMur(Lignes li,Tuile t,int i,int score){
+  public int addMur(Lignes li,Tuile t,int line,int score){
     int compt =score;
-    String couleur=((CaseCouleur)li.plateau[i][0]).getCouleur();
-      for(int j=0;j<taille;j++){
-        if(((CaseCouleur)plateau[i][j]).getCouleur()==couleur){
-          plateau[i][j].setTuile(t);
-          plateau[i][j].setTuileDessus(true);
-          compt++;
-          if(plateau[i][j-1].getTuileDessus()) compt++;  // marche pas si la tuile a deux ou plus de voisins sur la droite, etc
-          if(plateau[i][j+1].getTuileDessus()) compt++;
-          if(plateau[i-1][j].getTuileDessus()) compt++;
-          if(plateau[i+1][j].getTuileDessus()) compt++;
-        }
+    String couleur=li.plateau[line][0].getTuile().getCouleur();
+    for(int j=0;j<taille;j++){
+      if(((CaseCouleur)plateau[line][j]).getCouleur().equals(couleur)){
+        plateau[line][j].setTuile(t);
+        plateau[line][j].setTuileDessus(true);
+        compt++;
+        if(j!=0 && plateau[line][j-1].getTuileDessus()) compt++;  // marche pas si la tuile a deux ou plus de voisins sur la droite, etc
+        if(j!=taille && plateau[line][j+1].getTuileDessus()) compt++;
+        if(line!=0 && plateau[line-1][j].getTuileDessus()) compt++;
+        if(line!=taille && plateau[line+1][j].getTuileDessus()) compt++;
       }
+    }
+    return compt;
   }
 }

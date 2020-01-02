@@ -29,18 +29,7 @@ public class Jeu{
 			sac.add(new Tuile("noir"));
 			sac.add(new Tuile("rouge"));
 		}
-		for(int i=0;i<40;i++){
-			sac.add(new Tuile("orange"));
-		}
-		for(int i=0;i<60;i++){
-			sac.add(new Tuile("rouge"));
-		}
-		for (int i=0;i<80;i++){
-			sac.add(new Tuile("noir"));
-		}
-		for(int i=0;i<100;i++){
-			sac.add(new Tuile("blanc"));
-		}
+
 
 	}
 	public Joueur getJoueur(int i){
@@ -104,6 +93,11 @@ public class Jeu{
 						System.out.println("fabrique "+k+": "+fabriques[k]);
 				}
 				System.out.println(afficherCentre());
+				System.out.println(joueurs[i].getNom());
+				System.out.println("mur");
+				System.out.println(joueurs[i].getMur());
+				System.out.println("ligne");
+				System.out.println(joueurs[i].getLigne());
 
 				//demander si prendre dans Fabrique ou centre 
 				Scanner sc0= new Scanner(System.in);
@@ -130,12 +124,17 @@ public class Jeu{
 					String tui=sc4.next();
 
 					t=take(tui);
+					if(!centre.isEmpty() && centre.get(0).getCouleur().equals("vert")){
+						t.add(centre.get(0));
+						centre.remove(0);
+					}
 					System.out.println("okcent");
 				}
 				else{
 
 					//retourner exeption
 				}
+
 
 
 				System.out.println("mur");
@@ -149,10 +148,13 @@ public class Jeu{
 				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
 				int lig=sc3.nextInt();
 				boolean b=joueurs[i].getLigne().add(t,lig);
-				System.out.println(b);
 				if(!b){
 					System.out.println("2");
-					joueurs[i].getPlancher().addPlancher(t);
+					if(!joueurs[i].getPlancher().addPlancher(t)) {
+						for(int a=0;a<t.size();a++){
+							defausse.add(t.get(a));
+						}
+					}
 					System.out.println(joueurs[i].getPlancher());
 				}
 
@@ -169,15 +171,21 @@ public class Jeu{
 	public void decoration(){
 		for (int i=0; i<joueurs.length; i++) {
 			for (int j=0;j<5 ;j++ ) {
-				if(joueurs[i].getLigne().isFull(j)){
-					joueurs[i].getLigne().removeLine(j,defausse,joueurs[i].getScore(),joueurs[i].getMur());
+				boolean b=joueurs[i].getLigne().isFull(j);
+				if(b){
+					joueurs[i].setScore(joueurs[i].getLigne().removeLine(j,defausse,joueurs[i].getScore(),joueurs[i].getMur()));
 				}
 			}
-			joueurs[i].setScore(joueurs[i].getPlancher().totalPlancher());
+			joueurs[i].setScore(joueurs[i].getScore()+joueurs[i].getPlancher().totalPlancher());
 			joueurs[i].getPlancher().remiseAZero(defausse);		
 		}
-		//remmettre a 0les lignes full
-		//compter et afficher le nombre de pt (regarder si tuile dans le plancher)
+		while(!defausse.isEmpty()){
+			Tuile tuile=defausse.get(0);
+			sac.add(tuile);
+			defausse.remove(tuile);
+		}
+		//remmettre a 0 les lignes full
+		//compter et afficher le nombre de point (regarder si tuile dans le plancher)
 
 	}
 	public void fin(){
@@ -197,7 +205,17 @@ public class Jeu{
 	}
 
 	public boolean isTuileInGame(){
-		boolean b=true;
+		boolean b=false;
+		for(int i=0;i<fabriques.length;i++){
+			if(fabriques[i].getTas()[0]==null){
+				b=true;
+			}
+			else b=false;
+		}
+
+		return (!(b && centre.isEmpty()));
+
+		/*boolean b=true;
 		boolean t=true;
 		for(int i=0;i<fabriques.length;i++){
 			if(fabriques[i].getTas().length==0){
@@ -215,7 +233,7 @@ public class Jeu{
 			return false;
 		}else{
 			return true;
-		}
+		}*/
 		
 	}
 	public String afficherCentre(){
@@ -232,13 +250,14 @@ public class Jeu{
 
 	public ArrayList<Tuile> take(String c){
   	ArrayList<Tuile> sameColor =new ArrayList<Tuile>();
-  	for(int i=0;i<centre.size();i++){
+  	int i=0;
+  	while(i<centre.size()){
   		if(centre.get(i)!=null && centre.get(i).getCouleur().equals(c)){
   			sameColor.add(centre.get(i));
   			centre.remove(i);
   		}
+  		else i++;
   	}
-
   	return sameColor;
   }
 

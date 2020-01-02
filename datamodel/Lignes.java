@@ -24,38 +24,21 @@ public class Lignes extends Plateau{
   }
 
   public boolean isFull(int line){
-    boolean b=true;
-    for (int i=0;i<taille;i++){
-      for (int j=0;j<i+1 ;j++ ) {
-        if (i==line) {
-          if(getPlateau(i,j).getTuileDessus()==false){
-            b= false;
-            return b;
-          }else{
-            b=true;
-          }
-          
-        }
+    for (int i=0;i<line+1; i++) {
+      if (!plateau[line][i].getTuileDessus()) {
+        return false;
       }
     }
-    return b;
+    return true;
   }
 
   public boolean isEmptyLine(int line){
-    boolean b=false;
-    for (int i=0;i<taille; i++) {
-      for (int j=0; j<i+1; j++) {
-        if (i==line){
-          if (getPlateau(i,j).getTuileDessus()==true) {
-              b=true;
-              return b;
-          }else{
-            b=true;
-          }
-        }
+    for (int i=0;i<line+1; i++) {
+      if (getPlateau(line,i).getTuileDessus()) {
+        return false;
       }
     }
-    return b;
+    return true;
   }
 
   public boolean add(ArrayList<Tuile> t, int line){
@@ -64,18 +47,12 @@ public class Lignes extends Plateau{
       return false;
     } 
     if (isEmptyLine(line)){
-      int n=line+1;
-
-      if(n>t.size()) n=t.size();
-      System.out.println(n);
+      int n=Math.min(line+1,t.size());
     	for(int i=0;i<n;i++){
-        //if(t.get(i)!=null){
-        
-          Tuile tuile=t.get(i);
+          Tuile tuile=t.get(0);
       		this.plateau[line][i].setTuile(tuile);
       		plateau[line][i].setTuileDessus(true);
-      		t.remove(tuile);
-        //}
+      		t.remove(tuile); 
     	}
     }	 
     else{
@@ -87,15 +64,11 @@ public class Lignes extends Plateau{
         while(plateau[line][i].getTuileDessus()){
           i++;
         }
-        int n=line+1;
-        if(n-i>t.size()) n=t.size()+i;
-        System.out.println(n);
+        int n=Math.min(line+1,t.size()+i);
         for(int j=i;j<n;j++){
-          if(t.get(j)!=null){
-            this.plateau[line][j].setTuile(t.get(j));
+            this.plateau[line][j].setTuile(t.get(0));
             plateau[line][j].setTuileDessus(true);
             t.remove(this.plateau[line][j].getTuile());
-          }
         }
       }
     }
@@ -111,11 +84,14 @@ public class Lignes extends Plateau{
     
   }
 
-  public void removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){
-    m.addMur(this,plateau[line][0].getTuile(), line , score);
-    for(int i=1;i<taille;i++){
+  public int removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){
+    int n=m.addMur(this,plateau[line][0].getTuile(), line , score);
+    for(int i=0;i<taille;i++){
       defausse.add(plateau[line][i].getTuile());
+      plateau[line][i].setTuileDessus(false);
+      plateau[line][i].setTuile(null);
     }
+    return n;
   }
 
  

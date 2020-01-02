@@ -13,40 +13,22 @@ public class Plancher extends Plateau{
     return taille;
   }
 
-  public void addPlancher(ArrayList<Tuile> t){
-  	System.out.println("tchoutchou");
+  public boolean addPlancher(ArrayList<Tuile> t){
   	if(this.plateau[0][6].getTuileDessus()){
   		System.out.println("Plancher plein");
   	}else{
   		int j=0;
-  		for(int i=0;i<t.size();i++){
-  			if(t.get(i)!=null){
-  				while (plateau[0][j].getTuileDessus()){
-  					j++;
-  				}
-  				Tuile tuile=t.get(i);
-  				plateau[0][j].setTuile(tuile);
-
-  				plateau[0][j].setTuileDessus(true);
-  				t.remove(tuile);
-  				j++;
-  			}
-  		}
-  		/*int j=0;
-  		for(int i=0; i<taille;i++){
-  			if(!this.plateau[0][i].getTuileDessus()){
-  				while(t.get(j)==null){
-					j++;
-				}
-  				this.plateau[0][i].setTuile(t.get(j));
-  				plateau[0][i].setTuileDessus(true);
-  				t.remove(plateau[0][i].getTuile());
-  				j++;
-  			}
-  		}*/
+  		while (plateau[0][j].getTuileDessus()){
+  			j++;
+			}
+  		Tuile tuile=t.get(0);
+  		plateau[0][j].setTuile(tuile);
+  		plateau[0][j].setTuileDessus(true);
+  		t.remove(tuile);
+  		j++;
   	}
-  	//if(!t.isEmpty()) return false;  // permet de rajouter les tuile en trop dans la defausse si cest faux
-  //	else return true;
+  	if(!t.isEmpty()) return false;  // permet de rajouter les tuile en trop dans la defausse si cest faux
+    else return true;
   }
 
   public void remiseAZero(ArrayList<Tuile> defausse){
@@ -62,17 +44,10 @@ public class Plancher extends Plateau{
   public int totalPlancher(){
   	int compt=0;
   	for(int i=0;i<taille;i++){
-  		if(this.plateau[0][i].getTuileDessus()==true){
-  			if(((CaseCouleur)this.plateau[0][i]).getCouleur()=="vert"){
-  				compt-=1;
-  			}
-  			if(i<2){
-  				compt-=1;
-  			}else if(i<5){
-  				compt-=2;
-  			}else if(i<7){
-  				compt-=3;
-  			}
+  		if(this.plateau[0][i].getTuileDessus()){
+        if(i<2) compt-=1;
+        else if(i<5) compt-=2;
+  	    else if(i<7) compt-=3;
   		}
   	}
   	return compt;
