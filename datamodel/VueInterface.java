@@ -8,6 +8,7 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 //import java.awt.event.MouseEvent;
 import javax.swing.undo.*;
@@ -23,16 +24,24 @@ public class VueInterface extends JFrame implements VueGeneral{
 	private PlateauFabrique plateauFabrique;
 	private PlateauCentre plateauCentre;
 	private PlateauJoueur plateauJoueur;
-	private JLabel text;
 
 	private Jeu jeu;
+	private Joueur joueur;
+
+	public Joueur getJoueur(){
+		return joueur;
+	}
+	public void setJoueur(Joueur j){
+		joueur=j;
+	}
 
 	public VueInterface(ModelJeu m){
 		modele=m;
 		jeu=modele.getJeu();
+		joueur=jeu.getJoueur()[0];
 		plateauFabrique=new PlateauFabrique();
 		plateauCentre=new PlateauCentre();
-		plateauJoueur=new PlateauJoueur(0);
+		plateauJoueur=new PlateauJoueur(joueur.getNum());
 		JPanel p1=new JPanel();
 		p1.setLayout(new GridLayout(0,1));
 		p1.add(plateauFabrique);
@@ -51,98 +60,168 @@ public class VueInterface extends JFrame implements VueGeneral{
 		modele.partie();
 	}
 
+	public void fin(){
+		JLabel text;
+		JPanel p=new JPanel();
+		Joueur j=jeu.getJoueur()[0];
+		for(int i=0;i<jeu.getJoueur().length;i++){
+			JLabel t=new JLabel(jeu.getJoueur()[i].getNom()+" : "+jeu.getJoueur()[i].getScore()+", ");
+			p.add(t);
+			if(j.getScore()<jeu.getJoueur()[i].getScore()) j=jeu.getJoueur()[i];
+		}
+		text=new JLabel("-> "+j.getNom()+" a gagné avec un score de "+ j.getScore(), JLabel.CENTER);
+		p.add(text);
+		this.getContentPane().add(p);
+	}
+
 	// IMAGEPANE
     class PlateauFabrique extends JPanel{
-    	int x1,y1;  //x1,y1 coordonnee de la tuile de depart et x2,y2 coordonnee de la tuile en mouvement
+    	int xDepart=0;
+		int numFab=0; // coordonnee de la tuile de depart 
+		Paneau[][] paneaux;
 
-	    public void paintComponent(Graphics g){
-	      super.paintComponent(g);
-	      int n=modele.getJeu().getFabrique().length;
-	   	  int x=0;
-	   	  int y=0;
-	   	  Fabrique[] fabriques=modele.getJeu().getFabrique();
-	      for(int i=0;i<n;i++){
-	      	g.fillOval(x+i*150,y,150,150);
-	      	for(int j=0;j<4;j++){
-	      		Tuile[] tas=modele.getJeu().getFabrique()[i].getTas();
-	      		String couleur="bleu";
-	      		if(tas[j]!=null){
-	      			couleur=tas[j].getCouleur();
-	      		}
-	      		try{
-	      			Image image=ImageIO.read(new File("Images/"+couleur+".png"));
-	      			int a=y+22;
-	      			int b=x+i*150+22;
-	      			if(j==2 || j==3) a+=50;
-	      			if(j==1 || j==3) b+=50;   
-	      			g.drawImage(image,b,a,this);  
-		      		
+	    public PlateauFabrique(){
+	    	int taille=jeu.getFabrique().length;
+	    	paneaux=new Paneau[taille][jeu.getFabrique()[0].getNbTuile()];
+	    	JPanel[] tabPanel=new JPanel[taille];
+	    	for(int i=0;i<taille;i++){
+	    		tabPanel[i]=new JPanel();
+	    		tabPanel[i].setLayout(new GridLayout(2,2));
+	    		for(int j=0;j<paneaux[i].length;j++){
+	    			if(!jeu.getFabrique()[i].tasVide()){ 
+	    				paneaux[i][j]=new Paneau(j,jeu.getFabrique()[i].getTas()[j].getCouleur(),i);
+	    				tabPanel[i].add(paneaux[i][j]);
+	    			}
+	    		}
+	    	}
+	        setBorder(new TitledBorder(new EtchedBorder(), "Fabrique"));
+	        setLayout(new GridLayout(1,0,20,20));
+	    	//setLayout(new BorderLayout(20,20));
+	    	for(int i=0;i<tabPanel.length;i++){
+	    		if(paneaux[i]!=null) this.add(tabPanel[i],BorderLayout.WEST);
+	    	}    
+	    	
+	    	addMouseListener(new MouseAdapter(){
+	    		public void mouseClicked(MouseEvent e){
+			    }
+	    	});
+	    }
+	    public void enregistrerTuile(Paneau p){
+	    	xDepart=p.colone;
+	    	this.numFab=p.numFab;
+	    	modele.enregistrerTuile(xDepart,numFab);
+	    }
+
+		class Paneau extends JPanel{
+			int numFab;
+			int colone;
+			String couleur;
+			
+			// Constructeur de Paneau
+			// Reçoit une référence à la partie et son indice
+			public Paneau(int c,String co,int n){
+				colone=c;
+				numFab=n;
+				couleur=co;
+				setPreferredSize(new Dimension(40,40));
+				setBorder(BorderFactory.createLineBorder(Color.black));
+				
+				// Ajoute un MouseListener (écouteur de souris) qui va
+				// intercepter les clicks sur le Paneau
+				addMouseListener(new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+						enregistrerTuile((Paneau)e.getSource());
+					}
+				});
+			}
+			public void paintComponent(Graphics g){
+				// Appel de la méthode paintComponent de la classe parente
+				super.paintComponent(g);
+				try{
+	      			BufferedImage image=ImageIO.read(new File("Images/"+couleur+".png"));
+	      			g.drawImage(image,0,0,this);
 	      		}
 	      		catch(IOException e){
       				System.out.println("Image non trouvé");
     			}
-	      	}
-	      }	      
-	    }
-
-	    public PlateauFabrique(){
-	    	addMouseListener(new MouseAdapter(){
-	    		public void mouseClicked(MouseEvent e){
-			      	if(modele.getStart()){
-				        x1=e.getX();
-				        y1=e.getY();
-				        //plateauFabrique.repaint();
-				    }
-			    }
-	    	});
-	    }
+			}
+		}
 	}
 	class PlateauCentre extends JPanel{
-		int x,y;
-		
-	    public void paintComponent(Graphics g){
-	      	super.paintComponent(g);
-	        int n=jeu.getCentre().size();
-
-	   	    ArrayList<Tuile> centre=jeu.getCentre();
-	        for(int i=0;i<n;i++){
-	      		Tuile tuile=centre.get(i);
-	      		String couleur=tuile.getCouleur();
-	      		try{
-	      			Image image=ImageIO.read(new File("Images/"+couleur+".png"));
-	      			g.drawImage(image,i*50,i*50,this);  
-	      		}
-	      		catch(IOException e){
-	  				System.out.println("Image non trouvé");
-				}
-		    }	      
-	    }
+		int xDepart=0;
+		int yDepart=0; // coordonnee de la tuile de depart 
+		Paneau[] paneaux;
 
 	    public PlateauCentre(){
+	    	int taille=jeu.getCentre().size();
+	    	paneaux=new Paneau[taille];
+	    	JPanel[] tabPanel=new JPanel[taille];
+	    	for(int i=0;i<taille;i++){
+	    		tabPanel[i]=new JPanel();
+	    		tabPanel[i].setLayout(new BoxLayout(tabPanel[i],BoxLayout.LINE_AXIS));
+	    		paneaux[i]=new Paneau(i,jeu.getCentre().get(i).getCouleur());
+	    		tabPanel[i].add(paneaux[i]);
+	    	}
+	    	setBorder(new TitledBorder(new EtchedBorder(), "Centre"));
+	    	setLayout(new GridLayout(1,0));
+	    	for(int i=0;i<tabPanel.length;i++){
+	    		this.add(tabPanel[i]);
+	    	}
 	    	addMouseListener(new MouseAdapter(){
 	    		public void mouseClicked(MouseEvent e){
 			      	if(modele.getStart()){
-				        x=e.getX();
-				        y=e.getY();
+				        xDepart=e.getX();
+				        yDepart=e.getY();
 				        //plateauCentre.repaint();
 				    }
 			    }
 	    	});
 	    }
+	    public void deplacementTuileLigne(Paneau p){
+	    	xDepart=p.colone;
+	    	yDepart=0;
+	    	
+	    	this.repaint();
+	    }
+
+		class Paneau extends JPanel{
+			int colone;
+			String couleur;
+			
+			// Constructeur de Paneau
+			// Reçoit une référence à la partie et son indice
+			public Paneau(int c,String co){
+				colone=c;
+				couleur=co;
+				setPreferredSize(new Dimension(50,50));
+				setBorder(BorderFactory.createLineBorder(Color.black));
+				
+				// Ajoute un MouseListener (écouteur de souris) qui va
+				// intercepter les clicks sur le Paneau
+				addMouseListener(new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+						//(Paneau)e.getSource()
+					}
+				});
+			}
+			public void paintComponent(Graphics g){
+				// Appel de la méthode paintComponent de la classe parente
+				super.paintComponent(g);
+				try{
+	      			BufferedImage image=ImageIO.read(new File("Images/"+couleur+".png"));
+	      			g.drawImage(image,0,0,this);
+	      		}
+	      		catch(IOException e){
+      				System.out.println("Image non trouvé");
+    			}
+			}
+		}
 	}
 
 	class PlateauLigne extends JPanel{
-		int x,y; 
+		int xArrive=0;
 		Paneau[][] paneaux;
 		int numJoueur;
-
-	    public void paintComponent(Graphics g){
-		    super.paintComponent(g);
-		    
-
-	      //g.drawImage(modele.getImage(),selection.x,selection.y,this);
-	      
-	    }
 
 	    public PlateauLigne(int n){
 	    	numJoueur=n;
@@ -153,9 +232,8 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    		tabPanel[i]=new JPanel();
 	    		tabPanel[i].setLayout(new BoxLayout(tabPanel[i],BoxLayout.LINE_AXIS));
 	    		for(int j=0;j<i+1;j++){
-	    			paneaux[i][j]=new Paneau(i,j);
+	    			paneaux[i][j]=new Paneau(i);
 	    			tabPanel[i].add(paneaux[i][j]);
-
 	    		}
 	    	}
 	    	setBorder(new TitledBorder(new EtchedBorder(), "Ligne"));
@@ -163,28 +241,20 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    	for(int i=0;i<tabPanel.length;i++){
 	    		this.add(tabPanel[i]);
 	    	}
-
-		    //this.setPreferredSize(new Dimension(model.getImage().getWidth(),model.getImage().getHeight()));
-		    addMouseListener(new MouseAdapter(){
-		      	
-		    });
 	    }
 
 	    public void deplacementTuileLigne(Paneau p){
-	    	x=p.colone*50;
-	    	y=p.ligne*50;
-	    	this.repaint();
+	    	xArrive=p.ligne;
+	    	modele.deplacementTuileLigne(xArrive);
 	    }
 
 
 		class Paneau extends JPanel{
-			int ligne,colone;
-			
+			int ligne;
 			// Constructeur de Paneau
 			// Reçoit une référence à la partie et son indice
-			public Paneau(int l,int c){
+			public Paneau(int l){
 				ligne=l;
-				colone=c;
 				setPreferredSize(new Dimension(50,50));
 				setBackground(Color.lightGray);
 				setBorder(BorderFactory.createLineBorder(Color.black));
@@ -192,7 +262,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 				// Ajoute un MouseListener (écouteur de souris) qui va
 				// intercepter les clicks sur le Paneau
 				addMouseListener(new MouseAdapter(){
-					public void mouseReleased(MouseEvent e){
+					public void mouseClicked(MouseEvent e){
 						deplacementTuileLigne((Paneau)e.getSource());
 					}
 				});
@@ -204,23 +274,6 @@ public class VueInterface extends JFrame implements VueGeneral{
 	class PlateauMur extends JPanel{
 		Paneau[][] paneaux;
 		int numJoueur;
-
-	    public void paintComponent(Graphics g){
-		    super.paintComponent(g);
-			/*for(int i=0;i<paneaux.length;i++){
-				for(int j=0;j<paneaux[i].length;j++){
-					CaseCouleur cas=(CaseCouleur)jeu.getJoueur()[numJoueur].getMur().getPlateau()[i][j];
-					String couleur =(cas).getCouleur();
-					try{
-						Image image=ImageIO.read(new File("Images/"+couleur+"bis.png"));
-		      			g.drawImage(image,i*50,j*50,this);
-		      		}
-		      		catch(IOException e){
-		  				System.out.println("Image non trouvé");
-					}
-				}
-			}*/	
-	    }
 
 	    public PlateauMur(int n){
 	    	numJoueur=n;
@@ -261,10 +314,8 @@ public class VueInterface extends JFrame implements VueGeneral{
 				// Appel de la méthode paintComponent de la classe parente
 				super.paintComponent(g);
 				try{
-					int x=ligne*50;
-					int y=colone*50;
-	      			Image image=ImageIO.read(new File("Images/"+couleur+"bis.png"));
-	      			g.drawImage(image,x,y,this);
+	      			BufferedImage image=ImageIO.read(new File("Images/"+couleur+"bis.png"));
+	      			g.drawImage(image,0,0,this);
 	      		}
 	      		catch(IOException e){
       				System.out.println("Image non trouvé");
@@ -273,17 +324,10 @@ public class VueInterface extends JFrame implements VueGeneral{
 		}
 	}
 	class PlateauPlancher extends JPanel{
-		//int x,y; 
+		int xArrive=0;
+		int yArrive=0; 
 		Paneau[] paneaux;
 		int numJoueur;
-
-	    public void paintComponent(Graphics g){
-		    super.paintComponent(g);
-		    
-
-	      //g.drawImage(modele.getImage(),selection.x,selection.y,this);
-	      
-	    }
 
 	    public PlateauPlancher(int n){
 	    	numJoueur=n;
@@ -307,8 +351,17 @@ public class VueInterface extends JFrame implements VueGeneral{
 
 		    //this.setPreferredSize(new Dimension(model.getImage().getWidth(),model.getImage().getHeight()));
 		    addMouseListener(new MouseAdapter(){
-		      	
+		      	public void mouseClicked(MouseEvent e){
+					deplacementTuilePlancher((Paneau)e.getSource());
+				}
 		    });
+	    }
+
+	    public void deplacementTuilePlancher(Paneau p){
+	    	xArrive=p.colone;
+	    	yArrive=0;
+
+	    	this.repaint();
 	    }
 
 		class Paneau extends JPanel{
@@ -326,7 +379,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 				// intercepter les clicks sur le Paneau
 				addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
-						
+						//deplacementTuilePlancher(this);
 					}
 				});
 			}
@@ -361,7 +414,6 @@ public class VueInterface extends JFrame implements VueGeneral{
 			plateauMur.repaint();	
 		}
 	}
-
     // SELECTION   https://www.daniweb.com/programming/software-development/threads/342036/how-to-select-images-by-using-a-rectangular-area
 
 }

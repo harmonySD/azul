@@ -67,6 +67,15 @@ public class Jeu {
 			preparation();
 			offre();
 			decoration();
+			for(int i=0;i<joueurs.length;i++){
+				System.out.println("Joueur : "+joueurs[i].getNom());
+				System.out.println("Mur");
+				System.out.println(joueurs[i].getMur());
+				System.out.println("Ligne");
+				System.out.println(joueurs[i].getLigne());
+				System.out.println("Plancher");
+				System.out.println(joueurs[i].getPlancher());
+			}
 		}
 		fin();
 	}
@@ -183,15 +192,6 @@ public class Jeu {
 			Tuile tuile=defausse.get(0);
 			sac.add(tuile);
 			defausse.remove(tuile);
-		}
-		for(int i=0;i<joueurs.length;i++){
-			System.out.println("Joueur : "+joueurs[i].getNom());
-			System.out.println("Mur");
-			System.out.println(joueurs[i].getMur());
-			System.out.println("Ligne");
-			System.out.println(joueurs[i].getLigne());
-			System.out.println("Plancher");
-			System.out.println(joueurs[i].getPlancher());
 		}
 
 		//remmettre a 0 les lignes full

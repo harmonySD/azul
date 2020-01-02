@@ -7,8 +7,12 @@ public class Joueur{
 	private final Mur mur;
 	private final Lignes ligne;
 	private final Plancher plancher;
+	private final int num;
+	private static int compt=0;
 
 	public Joueur(){
+		num=compt;
+		compt++;
 		score=0;
 		mur =new Mur();
 		ligne=new Lignes();
@@ -35,6 +39,9 @@ public class Joueur{
 	}
 	public void setScore(int s){
 		score=s;
+	}
+	public int getNum(){
+		return num;
 	}
 
 	public boolean isFullLine(){

@@ -11,7 +11,7 @@ public class Jouer{
 
 	public Jouer(int n){
 	    ModelJeu modele=new ModelJeu(n);
-	    VueInterface vue=new VueInterface(modele);
+	    VueInterface vue=modele.getVue();
 	    vue.pack();
 	    vue.setVisible(true);
   	}
