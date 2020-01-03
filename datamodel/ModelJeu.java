@@ -30,13 +30,6 @@ public class ModelJeu{
 		return start;
 	}
 
-	public void offre(){
-		while(jeu.isTuileInGame()){
-			start=true;
-		}
-		start=false;
-	}
-
 	public void enregistrerTuileFabrique(String c,int numFab){
 		tuileChoisi=new ArrayList<Tuile>();
 		tuileChoisi=jeu.getFabrique()[numFab].take(c,jeu.getCentre());
