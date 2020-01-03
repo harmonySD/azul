@@ -47,6 +47,7 @@ public class Joueur{
 		return mur.toString()+"\n"+ligne.toString()+"\n"+plancher.toString();
 	}
 
+	//regarde si il y a une ligne complete dans le mur
 	public boolean isFullLine(){
 		for(int i=0;i<mur.getTaille();i++){
 			boolean b=true;
@@ -57,10 +58,6 @@ public class Joueur{
 		}
 		return false;
 	}
-
-	
-
-
 
 
 }

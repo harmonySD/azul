@@ -7,6 +7,7 @@ public class Jeu {
 	private ArrayList<Tuile> sac;
 	private ArrayList<Tuile> defausse;
 
+	//initialisation de tous les objets à null ou en les remplissant
 	public Jeu(int n){
 		joueurs=new Joueur[n];
 		for (int i=0; i<n; i++){
@@ -29,9 +30,8 @@ public class Jeu {
 			sac.add(new Tuile("noir"));
 			sac.add(new Tuile("rouge"));
 		}
-
-
 	}
+	// getter et setter
 	public Joueur getJoueur(int i){
 		return joueurs[i];
 	}
@@ -60,6 +60,7 @@ public class Jeu {
 		defausse=c;
 	}
 
+	// fonction principal qui lance une partie
 	public void partie(){
 		while(!isFullLine()){
 			preparation();
@@ -78,6 +79,7 @@ public class Jeu {
 		fin();
 	}
 
+	//regarde pour chaque joueur si une ligne dans son mur est pleine
 	public boolean isFullLine(){
 		for(int i=0;i<joueurs.length;i++){
 			if(joueurs[i].isFullLine()) return true;
@@ -85,6 +87,7 @@ public class Jeu {
 		return false;
 	}
 
+	//remplissage des fabriques et du centre
 	public void preparation(){
 		centre.add(new Tuile("vert"));  // vert=tuile -1
 		for(int j=0;j<fabriques.length;j++){
@@ -92,6 +95,7 @@ public class Jeu {
 		}
 	}
 	
+	//phase de jeu, choix des tuiles et apres choix de destination des tuiles
 	public void offre(){
 		while(isTuileInGame()){
 			System.out.println(isTuileInGame());
@@ -111,18 +115,32 @@ public class Jeu {
 
 				//demander si prendre dans Fabrique ou centre 
 				Scanner sc0= new Scanner(System.in);
-				System.out.println("vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
+				System.out.println("Vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
 				int rep=sc0.nextInt();
+				while (rep!=1 && rep!=0){
+					System.out.println("Erreur,\n Vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
+					rep=sc0.nextInt();
+				}
 
 				ArrayList<Tuile> t=new ArrayList<Tuile>();
 
 				if(rep==1){
 					Scanner sc=new Scanner(System.in);
-					System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
+					System.out.println("Indiquez le numero de la fabrique pour prendre une ou des tuiles :");
 					int fab=sc.nextInt();
+					while(fab<0 || fab>fabriques.length){
+						System.out.println("Erreur, mauvais numeros de fabrique. \n Indiquez le numero de la fabrique pour prendre une ou des tuiles :");
+						fab=sc.nextInt();
+					}
 					Scanner sc2=new Scanner(System.in);
-					System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+					System.out.println("Indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 					String tui=sc2.next();
+					while(!tui.equals("noir") && !tui.equals("blanc") && 
+						  !tui.equals("orange") && !tui.equals("bleu") && !tui.equals("rouge")){
+						System.out.println("Erreur, mauvaise couleur écrite" +
+							  "\nIndiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+						tui=sc2.next();
+					}
 
 					t=(fabriques[fab].take(tui,centre));
 
@@ -131,6 +149,12 @@ public class Jeu {
 					Scanner sc4= new Scanner(System.in);
 					System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 					String tui=sc4.next();
+					while(!tui.equals("noir") && !tui.equals("blanc") && 
+						  !tui.equals("orange") && !tui.equals("bleu") && !tui.equals("rouge")){
+						System.out.println("Erreur, mauvaise couleur écrite" +
+							  "\nIndiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+						tui=sc4.next();
+					}
 
 					t=take(tui);
 					if(!centre.isEmpty() && centre.get(0).getCouleur().equals("vert")){
@@ -151,8 +175,12 @@ public class Jeu {
 				System.out.println(joueurs[i].getPlancher());
 
 				Scanner sc3=new Scanner(System.in);
-				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
+				System.out.println("Indiquez la ligne ou vous souhaitez posez vos tuiles :");
 				int lig=sc3.nextInt();
+				while(lig<0 || lig>joueurs[i].getLigne().getTaille()){
+					System.out.println("Erreur, mauvaise ligne. \n Indiquez la ligne ou vous souhaitez posez vos tuiles :");
+					lig=sc3.nextInt();
+				}
 				boolean b=joueurs[i].getLigne().add(t,lig);
 				if(!b){
 					if(!joueurs[i].getPlancher().addPlancher(t)) {
@@ -172,6 +200,8 @@ public class Jeu {
 			}
 		}
 	}
+
+	//fin d'une manche, les lignes completes vont dans le mur et les Ligne sont vidées dans la defausse
 	public void decoration(){
 		for (int i=0; i<joueurs.length; i++) {
 			for (int j=0;j<5 ;j++ ) {
@@ -192,6 +222,8 @@ public class Jeu {
 		//remmettre a 0 les lignes full
 		//compter et afficher le nombre de point (regarder si tuile dans le plancher)
 	}
+
+	//affiche le score des joueurs ainsi que le gagnant
 	public void fin(){
 		Joueur j=joueurs[0];
 		for(int i=0;i<joueurs.length;i++){
@@ -200,6 +232,8 @@ public class Jeu {
 		}
 		System.out.println(j.getNom()+" a gagné avec un score de "+ j.getScore());
 	}
+
+	//regarde si le sac est vide
 	public boolean isSacEmpty(){
 		if(this.sac.size()==0){
 			return true; //il faut donc remplir le sac grace a la defausse 
@@ -208,6 +242,7 @@ public class Jeu {
 		}
 	}
 
+	//regarde s'il reste une tuile dans les fabriques ou dans le centre
 	public boolean isTuileInGame(){
 		boolean b=true;
 		for(int i=0;i<fabriques.length;i++){
@@ -217,20 +252,21 @@ public class Jeu {
 			else return true;
 		}
 		return (b || !centre.isEmpty());
-		
 	}
+
+	//affiche le centre
 	public String afficherCentre(){
 		String st="centre :";
 		for (int i=0;i<centre.size() ; i++) {
 			st+=centre.get(i).toString();
 			if(i%3==0){
 				st+="\n";
-			}
-			
+			}		
 		}
 		return st;
 	}
 
+	//prend toutes les tuile de la couleur c dans le centre
 	public ArrayList<Tuile> take(String c){
   	ArrayList<Tuile> sameColor =new ArrayList<Tuile>();
   	int i=0;

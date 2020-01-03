@@ -7,7 +7,7 @@ public class Lignes extends Plateau{
   	 super(5,5);
   	 remplirPlateauVide();
   }
-  	public String toString(){ 
+  public String toString(){ 
 		String s="";
 		for(int i=0; i<taille;i++){
       s+=i+" : ";
@@ -23,6 +23,7 @@ public class Lignes extends Plateau{
     return taille;
   }
 
+  //regarder si la ligne (line) est pleine
   public boolean isFull(int line){
     for (int i=0;i<line+1; i++) {
       if (!plateau[line][i].getTuileDessus()) {
@@ -32,6 +33,7 @@ public class Lignes extends Plateau{
     return true;
   }
 
+  //regarder si la ligne (line) est vide
   public boolean isEmptyLine(int line){
     for (int i=0;i<line+1; i++) {
       if (getPlateau(line,i).getTuileDessus()) {
@@ -41,6 +43,8 @@ public class Lignes extends Plateau{
     return true;
   }
 
+  //ajoute t a la ligne (line) et gere si il y a trop de tuile ou pas assez ou 
+  //s'il y a deja une tuile d'une couleur sur cette ligne
   public boolean add(ArrayList<Tuile> t, int line){
     if (isFull(line)){
       return false;
@@ -75,17 +79,11 @@ public class Lignes extends Plateau{
       }
     }
 
-    if(!t.isEmpty()){
-      //System.out.println("pb");
-      //si t n'est paqs vide ajouter le reste   au plancher 
-      return false;
-      
-    }else{
-      return true;
-    } // permet dajouter au plancher le reste qui n'a pas ete ajouter
-    
+    if(!t.isEmpty()) return false; //si t n'est pas vide ajouter le reste   au plancher 
+    else return true;    
   }
 
+  //ajoute au mur si la ligne est pleine et vide cette ligne dans la defausse en rendant le plateau de ligne vide
   public int removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){
     int n=m.addMur(this,plateau[line][0].getTuile(), line , score);
     for(int i=0;i<plateau[line].length;i++){
@@ -95,7 +93,6 @@ public class Lignes extends Plateau{
     }
     return n;
   }
-
  
 
 }
