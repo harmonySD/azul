@@ -1,5 +1,4 @@
 
-
 import java.util.*;
 
 import javax.swing.*;
@@ -23,13 +22,13 @@ public class Jouer{
 		String choix=sc.next();
 		while (!choix.equals("t") && !choix.equals("i")){
 			System.out.println("Erreur, mauivaise lettre \n Voulez vous jouer sur le terminal (t) ou avec l'interface graphique (i)");  //exception a gerer
-			String choix=sc.next();
+			choix=sc.next();
 		}
 		System.out.println("Entrez le nombre de joueur");
 		int n=sc.nextInt();
 		while (n>4 || n<2){
 			System.out.println("Erreur, vous ne pouvez jouer qu'à 2,3 ou 4 joueurs. \n Entrez le nombre de joueur");
-			int n=sc.nextInt();
+			n=sc.nextInt();
 		}
 		VueGeneral vue;
 		if(choix.equals("t")){
