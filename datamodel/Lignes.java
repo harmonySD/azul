@@ -58,10 +58,7 @@ public class Lignes extends Plateau{
     	}
     }	 
     else{
-    	if (!t.get(0).getCouleur().equals(plateau[line][0].getTuile().getCouleur())){// je voudrais dire si ce n'est pas vide et que la couleur de t n'est pas la meme qeu la couleur deja presente sur la ligne 
-      	System.out.println("Mauvaise ligne, pas la bonne couleur");  // je pense il faut le gerer dans une exception
-      }
-      else{
+    	if (t.get(0).getCouleur().equals(plateau[line][0].getTuile().getCouleur())){// je voudrais dire si ce n'est pas vide et que la couleur de t n'est pas la meme qeu la couleur deja presente sur la ligne 
         int i=0;
         while(plateau[line][i].getTuileDessus()){
           i++;
@@ -76,7 +73,6 @@ public class Lignes extends Plateau{
     }
 
     if(!t.isEmpty()){
-      //System.out.println("pb");
       //si t n'est paqs vide ajouter le reste   au plancher 
       return false;
       
