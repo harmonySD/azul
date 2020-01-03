@@ -56,12 +56,9 @@ public class VueInterface extends JFrame implements VueGeneral{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public void partie(){
-		modele.partie();
-	}
-
 	public void fin(){
 		JLabel text;
+		getContentPane().removeAll();
 		JPanel p=new JPanel();
 		Joueur j=modele.getJeu().getJoueur()[0];
 		for(int i=0;i<modele.getJeu().getJoueur().length;i++){
@@ -74,6 +71,10 @@ public class VueInterface extends JFrame implements VueGeneral{
 		this.getContentPane().add(p);
 	}
 
+	public void partie(){
+
+	}
+
 	public void nouvelAffichage(){
 		/*try{
     		TimeUnit.SECONDS.sleep(2);
@@ -81,7 +82,7 @@ public class VueInterface extends JFrame implements VueGeneral{
     	catch (InterruptedException e) {
             e.printStackTrace();
         }*/
-		getContentPane().removeAll();
+		/*getContentPane().removeAll();
 		plateauFabrique=new PlateauFabrique();
    		plateauCentre=new PlateauCentre();
    		plateauJoueur=new PlateauJoueur(joueur.getNum());
@@ -94,7 +95,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 		
     	getContentPane().add(p1);
     	getContentPane().add(plateauJoueur);
-    	getContentPane().validate();
+    	getContentPane().validate();*/
     	try{
     		TimeUnit.SECONDS.sleep(1);
     	}

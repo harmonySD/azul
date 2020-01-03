@@ -1,6 +1,5 @@
-
-
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 import java.io.*;
 import java.awt.*;
@@ -13,7 +12,7 @@ public class ModelJeu{
     private Jeu jeu;
   	private boolean start=false;
   	private VueInterface vue;
-  	private ArrayList<Tuile> tuileChoisi =new ArrayList<Tuile>();
+  	private ArrayList<Tuile> tuileChoisi;
 
     public ModelJeu(int n) {
 	  	jeu=new Jeu(n); 
@@ -31,17 +30,6 @@ public class ModelJeu{
 		return start;
 	}
 
-	public void partie(){
-		while(jeu.isFullLine()){
-			jeu.preparation();
-			vue.repaint();
-			offre();
-			jeu.decoration();
-			vue.repaint();
-		}
-		//vue.fin();
-	}
-
 	public void offre(){
 		while(jeu.isTuileInGame()){
 			start=true;
@@ -50,9 +38,11 @@ public class ModelJeu{
 	}
 
 	public void enregistrerTuileFabrique(String c,int numFab){
+		tuileChoisi=new ArrayList<Tuile>();
 		tuileChoisi=jeu.getFabrique()[numFab].take(c,jeu.getCentre());
 	}
 	public void enregistrerTuileCentre(String c){
+		tuileChoisi=new ArrayList<Tuile>();
 		tuileChoisi=jeu.take(c);
 		if(!jeu.getCentre().isEmpty() && jeu.getCentre().get(0).getCouleur().equals("vert")){
 			tuileChoisi.add(jeu.getCentre().get(0));
@@ -79,9 +69,18 @@ public class ModelJeu{
 
 	public void decoration(){
 		jeu.decoration();
-		jeu.preparation();
 		vue.nouvelAffichage();
-		if(jeu.isFullLine()) start=true;
+		try{
+    		TimeUnit.SECONDS.sleep(1);
+    	}
+    	catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+		if(jeu.isFullLine()){
+			start=true;
+			jeu.preparation();
+			vue.nouvelAffichage();
+		}
 		else vue.fin();
 	}
 
