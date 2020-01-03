@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
@@ -20,10 +21,10 @@ import javax.swing.border.*;
 
 public class VueInterface extends JFrame implements VueGeneral{
 
-	public ModelJeu modele; 
-	private PlateauFabrique plateauFabrique;
-	private PlateauCentre plateauCentre;
-	private PlateauJoueur plateauJoueur;
+	private ModelJeu modele; 
+	public PlateauFabrique plateauFabrique;
+	public PlateauCentre plateauCentre;
+	public PlateauJoueur plateauJoueur;
 
 	private Jeu jeu;
 	private Joueur joueur;
@@ -42,6 +43,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 		plateauFabrique=new PlateauFabrique();
 		plateauCentre=new PlateauCentre();
 		plateauJoueur=new PlateauJoueur(joueur.getNum());
+
 		JPanel p1=new JPanel();
 		p1.setLayout(new GridLayout(0,1));
 		p1.add(plateauFabrique);
@@ -74,25 +76,79 @@ public class VueInterface extends JFrame implements VueGeneral{
 		this.getContentPane().add(p);
 	}
 
+	public void nouvelAffichage(){
+		/*try{
+    		TimeUnit.SECONDS.sleep(2);
+    	}
+    	catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+		getContentPane().removeAll();
+		plateauFabrique=new PlateauFabrique();
+   		plateauCentre=new PlateauCentre();
+   		plateauJoueur=new PlateauJoueur(joueur.getNum());
+   		JPanel p1=new JPanel();
+		p1.setLayout(new GridLayout(0,1));
+		p1.add(plateauFabrique);
+		p1.add(plateauCentre);
+
+		getContentPane().setLayout(new GridLayout(0,1));
+		
+    	getContentPane().add(p1);
+    	getContentPane().add(plateauJoueur);
+    	getContentPane().validate();
+    	/*try{
+    		TimeUnit.SECONDS.sleep(2);
+    	}
+    	catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+		modele.nextJoueur();
+		getContentPane().removeAll();
+		plateauFabrique=new PlateauFabrique();
+	   	plateauCentre=new PlateauCentre();
+	   	plateauJoueur=new PlateauJoueur(joueur.getNum());
+	   	p1=new JPanel();
+		p1.setLayout(new GridLayout(0,1));
+		p1.add(plateauFabrique);
+		p1.add(plateauCentre);
+
+		getContentPane().setLayout(new GridLayout(0,1));
+		
+    	getContentPane().add(p1);
+    	getContentPane().add(plateauJoueur);
+    	getContentPane().validate();
+
+	}
+
 	// IMAGEPANE
     class PlateauFabrique extends JPanel{
     	int xDepart=0;
-		int numFab=0; // coordonnee de la tuile de depart 
+		int numFab=0; // coordonnee de la tuile de depart
+		String couleur; 
 		Paneau[][] paneaux;
 
 	    public PlateauFabrique(){
-	    	int taille=jeu.getFabrique().length;
-	    	paneaux=new Paneau[taille][jeu.getFabrique()[0].getNbTuile()];
-	    	JPanel[] tabPanel=new JPanel[taille];
-	    	for(int i=0;i<taille;i++){
-	    		tabPanel[i]=new JPanel();
-	    		tabPanel[i].setLayout(new GridLayout(2,2));
-	    		for(int j=0;j<paneaux[i].length;j++){
-	    			if(!jeu.getFabrique()[i].tasVide()){ 
-	    				paneaux[i][j]=new Paneau(j,jeu.getFabrique()[i].getTas()[j].getCouleur(),i);
-	    				tabPanel[i].add(paneaux[i][j]);
-	    			}
-	    		}
+	    	int taille=0;
+			for(int i=0;i<jeu.getFabrique().length;i++){
+				if(!jeu.getFabrique()[i].tasVide()) taille++;
+			}
+			JPanel[] tabPanel=new JPanel[taille];
+			if(taille!=0){
+		    	paneaux=new Paneau[taille][jeu.getFabrique()[0].getNbTuile()];
+		    	int m=0;
+		    	for(int i=0;i<jeu.getFabrique().length;i++){
+		    		if(!jeu.getFabrique()[i].tasVide()){
+		    			tabPanel[m]=new JPanel();
+	    				tabPanel[m].setLayout(new GridLayout(2,2));
+			    		for(int j=0;j<paneaux[m].length;j++){
+			    			paneaux[m][j]=new Paneau(j,jeu.getFabrique()[i].getTas()[j].getCouleur(),i);
+			    			tabPanel[m].add(paneaux[m][j]);
+			    		}
+		    		    m++;
+		    		}
+		    	}
 	    	}
 	        setBorder(new TitledBorder(new EtchedBorder(), "Fabrique"));
 	        setLayout(new GridLayout(1,0,20,20));
@@ -100,16 +156,12 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    	for(int i=0;i<tabPanel.length;i++){
 	    		if(paneaux[i]!=null) this.add(tabPanel[i],BorderLayout.WEST);
 	    	}    
-	    	
-	    	addMouseListener(new MouseAdapter(){
-	    		public void mouseClicked(MouseEvent e){
-			    }
-	    	});
 	    }
 	    public void enregistrerTuile(Paneau p){
 	    	xDepart=p.colone;
-	    	this.numFab=p.numFab;
-	    	modele.enregistrerTuile(xDepart,numFab);
+	    	numFab=p.numFab;
+	    	couleur=p.couleur;
+	    	modele.enregistrerTuileFabrique(couleur,numFab);
 	    }
 
 		class Paneau extends JPanel{
@@ -123,6 +175,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 				colone=c;
 				numFab=n;
 				couleur=co;
+				setBackground(Color.gray);
 				setPreferredSize(new Dimension(40,40));
 				setBorder(BorderFactory.createLineBorder(Color.black));
 				
@@ -145,11 +198,14 @@ public class VueInterface extends JFrame implements VueGeneral{
       				System.out.println("Image non trouvé");
     			}
 			}
+			public String toString(){
+				return numFab+" "+colone+" "+couleur;
+			}
 		}
 	}
 	class PlateauCentre extends JPanel{
 		int xDepart=0;
-		int yDepart=0; // coordonnee de la tuile de depart 
+		String couleur;  // coordonnee de la tuile de depart 
 		Paneau[] paneaux;
 
 	    public PlateauCentre(){
@@ -167,21 +223,11 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    	for(int i=0;i<tabPanel.length;i++){
 	    		this.add(tabPanel[i]);
 	    	}
-	    	addMouseListener(new MouseAdapter(){
-	    		public void mouseClicked(MouseEvent e){
-			      	if(modele.getStart()){
-				        xDepart=e.getX();
-				        yDepart=e.getY();
-				        //plateauCentre.repaint();
-				    }
-			    }
-	    	});
 	    }
-	    public void deplacementTuileLigne(Paneau p){
+	    public void enregistrerTuile(Paneau p){
 	    	xDepart=p.colone;
-	    	yDepart=0;
-	    	
-	    	this.repaint();
+	    	couleur=p.couleur;
+	    	modele.enregistrerTuileCentre(couleur);
 	    }
 
 		class Paneau extends JPanel{
@@ -194,13 +240,14 @@ public class VueInterface extends JFrame implements VueGeneral{
 				colone=c;
 				couleur=co;
 				setPreferredSize(new Dimension(50,50));
+				setBackground(Color.gray);
 				setBorder(BorderFactory.createLineBorder(Color.black));
 				
 				// Ajoute un MouseListener (écouteur de souris) qui va
 				// intercepter les clicks sur le Paneau
 				addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
-						//(Paneau)e.getSource()
+						enregistrerTuile((Paneau)e.getSource());
 					}
 				});
 			}
@@ -232,7 +279,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    		tabPanel[i]=new JPanel();
 	    		tabPanel[i].setLayout(new BoxLayout(tabPanel[i],BoxLayout.LINE_AXIS));
 	    		for(int j=0;j<i+1;j++){
-	    			paneaux[i][j]=new Paneau(i);
+	    			paneaux[i][j]=new Paneau(i,j);
 	    			tabPanel[i].add(paneaux[i][j]);
 	    		}
 	    	}
@@ -246,17 +293,20 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    public void deplacementTuileLigne(Paneau p){
 	    	xArrive=p.ligne;
 	    	modele.deplacementTuileLigne(xArrive);
+	    	nouvelAffichage();
 	    }
 
 
 		class Paneau extends JPanel{
 			int ligne;
+			int colone;
 			// Constructeur de Paneau
 			// Reçoit une référence à la partie et son indice
-			public Paneau(int l){
+			public Paneau(int l,int c){
 				ligne=l;
+				colone=c;
+				setBackground(Color.gray);
 				setPreferredSize(new Dimension(50,50));
-				setBackground(Color.lightGray);
 				setBorder(BorderFactory.createLineBorder(Color.black));
 				
 				// Ajoute un MouseListener (écouteur de souris) qui va
@@ -267,7 +317,19 @@ public class VueInterface extends JFrame implements VueGeneral{
 					}
 				});
 			}
-			
+			public void paintComponent(Graphics g){
+				super.paintComponent(g);
+				if(joueur.getLigne().getPlateau()[ligne][colone].getTuileDessus()){
+					try{
+						String couleur=joueur.getLigne().getPlateau()[ligne][colone].getTuile().getCouleur();
+		      			BufferedImage image=ImageIO.read(new File("Images/"+couleur+".png"));
+		      			g.drawImage(image,0,0,this);
+		      		}
+		      		catch(IOException e){
+	      				System.out.println("Image non trouvé");
+	    			}
+				}
+			}
 		}
 
 	}
@@ -284,7 +346,9 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    		tabPanel[i].setLayout(new BoxLayout(tabPanel[i],BoxLayout.LINE_AXIS));
 		    	for(int j=0;j<paneaux[i].length;j++){
 		    		CaseCouleur cas=(CaseCouleur)jeu.getJoueur()[numJoueur].getMur().getPlateau()[i][j];
-		    		String couleur =cas.getCouleur();
+		    		String couleur;
+		    		if(cas.getTuileDessus()) couleur=cas.getTuile().getCouleur();
+		    		else couleur =cas.getCouleur()+"bis";
 		    		paneaux[i][j]=new Paneau(couleur,i,j);
 		    		tabPanel[i].add(paneaux[i][j]);
 		    	}
@@ -304,6 +368,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 				couleur =co;
 				ligne=l;
 				colone=c;
+				setBackground(Color.gray);
 				setPreferredSize(new Dimension(50,50));
 				setBorder(BorderFactory.createLineBorder(Color.black));
 				repaint();
@@ -314,7 +379,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 				// Appel de la méthode paintComponent de la classe parente
 				super.paintComponent(g);
 				try{
-	      			BufferedImage image=ImageIO.read(new File("Images/"+couleur+"bis.png"));
+	      			BufferedImage image=ImageIO.read(new File("Images/"+couleur+".png"));
 	      			g.drawImage(image,0,0,this);
 	      		}
 	      		catch(IOException e){
@@ -350,17 +415,11 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    	}
 
 		    //this.setPreferredSize(new Dimension(model.getImage().getWidth(),model.getImage().getHeight()));
-		    addMouseListener(new MouseAdapter(){
-		      	public void mouseClicked(MouseEvent e){
-					deplacementTuilePlancher((Paneau)e.getSource());
-				}
-		    });
 	    }
 
 	    public void deplacementTuilePlancher(Paneau p){
 	    	xArrive=p.colone;
 	    	yArrive=0;
-
 	    	this.repaint();
 	    }
 
@@ -372,16 +431,29 @@ public class VueInterface extends JFrame implements VueGeneral{
 			public Paneau(int c){
 				colone=c;
 				setPreferredSize(new Dimension(50,50));
-				setBackground(Color.lightGray);
+				setBackground(Color.gray);
 				setBorder(BorderFactory.createLineBorder(Color.black));
 				
 				// Ajoute un MouseListener (écouteur de souris) qui va
 				// intercepter les clicks sur le Paneau
 				addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
-						//deplacementTuilePlancher(this);
+						deplacementTuilePlancher((Paneau)e.getSource());
 					}
 				});
+			}
+			public void paintComponent(Graphics g){
+				super.paintComponent(g);
+				if(joueur.getPlancher().getPlateau()[0][colone].getTuileDessus()){
+					try{
+						String couleur=joueur.getPlancher().getPlateau()[0][colone].getTuile().getCouleur();
+		      			BufferedImage image=ImageIO.read(new File("Images/"+couleur+".png"));
+		      			g.drawImage(image,0,0,this);
+		      		}
+		      		catch(IOException e){
+	      				System.out.println("Image non trouvé");
+	    			}
+				}
 			}
 			
 		}

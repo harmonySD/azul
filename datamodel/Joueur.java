@@ -43,6 +43,9 @@ public class Joueur{
 	public int getNum(){
 		return num;
 	}
+	public String toString(){
+		return mur.toString()+"\n"+ligne.toString()+"\n"+plancher.toString();
+	}
 
 	public boolean isFullLine(){
 		for(int i=0;i<mur.getTaille();i++){
