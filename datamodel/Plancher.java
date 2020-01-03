@@ -36,6 +36,7 @@ public class Plancher extends Plateau{
   		if(this.plateau[0][i].getTuileDessus()){
   			defausse.add(this.plateau[0][i].getTuile());
         this.plateau[0][i].setTuile(null);
+        this.plateau[0][i].setTuileDessus(false);
   		}
   	}
   }

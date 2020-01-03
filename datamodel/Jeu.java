@@ -89,7 +89,6 @@ public class Jeu {
 		centre.add(new Tuile("vert"));  // vert=tuile -1
 		for(int j=0;j<fabriques.length;j++){
 			fabriques[j].remplirFabrique(sac);
-			System.out.println(fabriques[j]);
 		}
 	}
 	
@@ -115,7 +114,7 @@ public class Jeu {
 				System.out.println("vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
 				int rep=sc0.nextInt();
 
-				ArrayList<Tuile> t= new ArrayList<Tuile>();
+				ArrayList<Tuile> t=new ArrayList<Tuile>();
 
 				if(rep==1){
 					Scanner sc=new Scanner(System.in);
@@ -186,13 +185,12 @@ public class Jeu {
 		}
 		while(!defausse.isEmpty()){
 			Tuile tuile=defausse.get(0);
-			sac.add(tuile);
+			//System.out.println(tuile);
+			if(tuile!=null && !tuile.getCouleur().equals("vert")) sac.add(tuile);
 			defausse.remove(tuile);
 		}
-
 		//remmettre a 0 les lignes full
 		//compter et afficher le nombre de point (regarder si tuile dans le plancher)
-
 	}
 	public void fin(){
 		Joueur j=joueurs[0];

@@ -43,7 +43,6 @@ public class Lignes extends Plateau{
 
   public boolean add(ArrayList<Tuile> t, int line){
     if (isFull(line)){
-      System.out.println("Ligne complete");
       return false;
     } 
     if (isEmptyLine(line)){
@@ -58,8 +57,7 @@ public class Lignes extends Plateau{
     	}
     }	 
     else{
-    	if (!t.get(0).getCouleur().equals(plateau[line][0].getTuile().getCouleur())){// je voudrais dire si ce n'est pas vide et que la couleur de t n'est pas la meme qeu la couleur deja presente sur la ligne 
-      	System.out.println("Mauvaise ligne, pas la bonne couleur");  // je pense il faut le gerer dans une exception
+    	if (!t.get(0).getCouleur().equals(plateau[line][0].getTuile().getCouleur())){
       }
       else{
         int i=0;
@@ -68,9 +66,11 @@ public class Lignes extends Plateau{
         }
         int n=Math.min(line+1,t.size()+i);
         for(int j=i;j<n;j++){
+          if(!t.get(0).getCouleur().equals("vert")){
             this.plateau[line][j].setTuile(t.get(0));
             plateau[line][j].setTuileDessus(true);
             t.remove(this.plateau[line][j].getTuile());
+          }
         }
       }
     }
@@ -88,7 +88,7 @@ public class Lignes extends Plateau{
 
   public int removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){
     int n=m.addMur(this,plateau[line][0].getTuile(), line , score);
-    for(int i=0;i<taille;i++){
+    for(int i=0;i<plateau[line].length;i++){
       defausse.add(plateau[line][i].getTuile());
       plateau[line][i].setTuileDessus(false);
       plateau[line][i].setTuile(null);

@@ -64,11 +64,15 @@ public class VueInterface extends JFrame implements VueGeneral{
 		for(int i=0;i<modele.getJeu().getJoueur().length;i++){
 			JLabel t=new JLabel(modele.getJeu().getJoueur()[i].getNom()+" : "+modele.getJeu().getJoueur()[i].getScore()+", ");
 			p.add(t);
-			if(j.getScore()<modele.getJeu().getJoueur()[i].getScore()) j=modele.getJeu().getJoueur()[i];
+			if(j.getScore()<modele.getJeu().getJoueur()[i].getScore()){
+				j=modele.getJeu().getJoueur()[i];
+				System.out.println("if");
+			}
 		}
 		text=new JLabel("-> "+j.getNom()+" a gagné avec un score de "+ j.getScore(), JLabel.CENTER);
 		p.add(text);
 		this.getContentPane().add(p);
+		modele.getJeu().fin();
 	}
 
 	public void partie(){
@@ -108,7 +112,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 		plateauFabrique=new PlateauFabrique();
 	   	plateauCentre=new PlateauCentre();
 	   	plateauJoueur=new PlateauJoueur(joueur.getNum());
-	   	p1=new JPanel();
+	   	JPanel p1=new JPanel();
 		p1.setLayout(new GridLayout(0,1));
 		p1.add(plateauFabrique);
 		p1.add(plateauCentre);
@@ -289,7 +293,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    	}
 	    }
 
-	    public void deplacementTuileLigne(Paneau p){
+	    public void deplacementTuile(Paneau p){
 	    	xArrive=p.ligne;
 	    	modele.deplacementTuileLigne(xArrive);
 	    	nouvelAffichage();
@@ -312,7 +316,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 				// intercepter les clicks sur le Paneau
 				addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
-						deplacementTuileLigne((Paneau)e.getSource());
+						deplacementTuile((Paneau)e.getSource());
 					}
 				});
 			}
@@ -416,10 +420,10 @@ public class VueInterface extends JFrame implements VueGeneral{
 		    //this.setPreferredSize(new Dimension(model.getImage().getWidth(),model.getImage().getHeight()));
 	    }
 
-	    public void deplacementTuilePlancher(Paneau p){
+	    public void deplacementTuile(Paneau p){
 	    	xArrive=p.colone;
-	    	yArrive=0;
-	    	this.repaint();
+	    	modele.deplacementTuilePlancher(xArrive);
+	    	nouvelAffichage();
 	    }
 
 		class Paneau extends JPanel{
@@ -437,7 +441,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 				// intercepter les clicks sur le Paneau
 				addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
-						deplacementTuilePlancher((Paneau)e.getSource());
+						deplacementTuile((Paneau)e.getSource());
 					}
 				});
 			}

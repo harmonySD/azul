@@ -66,6 +66,19 @@ public class ModelJeu{
 			}
 		}
 	}
+	public void deplacementTuilePlancher(int colone){
+		if(!tuileChoisi.isEmpty()){
+			if(!vue.getJoueur().getPlancher().addPlancher(tuileChoisi)){
+				for(int a=0;a<tuileChoisi.size();a++){
+					jeu.getDefausse().add(tuileChoisi.get(a));
+				}
+			}
+			if(!jeu.isTuileInGame()){
+				start=false;
+				decoration();
+			}
+		}
+	}
 
 	public void decoration(){
 		jeu.decoration();
@@ -76,12 +89,14 @@ public class ModelJeu{
     	catch (InterruptedException e) {
             e.printStackTrace();
         }
-		if(jeu.isFullLine()){
+		if(!jeu.isFullLine()){
 			start=true;
 			jeu.preparation();
 			vue.nouvelAffichage();
 		}
-		else vue.fin();
+		else {
+			vue.fin();
+		}
 	}
 
 	public void nextJoueur(){
