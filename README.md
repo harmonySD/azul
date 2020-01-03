@@ -10,6 +10,6 @@ Le jeu va se faire avec une intéraction entre des questions posé par le termin
 
 **Dans l'interface graphique**
 
-Les fabriques, le centre et la plateau du premier joueur vont s'afficher, ensuite, à tour de rôle, le joueur changera.
-Pour jouer, il faut cliqué sur la tuile que nous voulons prendre et ensite de nouveau cliquer sur la ligne ou nous voulons la mettre et ainsi de suite. 
+Les fabriques, le centre et le plateau du premier joueur vont s'afficher, ensuite, à tour de rôle, le joueur changera.
+Pour jouer, il faut cliqué sur la tuile que nous voulons prendre et ensuite de nouveau cliquer sur la ligne ou nous voulons la mettre et ainsi de suite. 
 Le résultat s'affichera lors du prochain tour du joueur.
