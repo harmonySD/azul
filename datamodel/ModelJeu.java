@@ -16,17 +16,7 @@ public class ModelJeu{
     public ModelJeu(int n) {
 	  	jeu=new Jeu(n);
 	  	jeu.preparation();
-	    /*try{
-	      image=ImageIO.read(new File(chemin));
-	    }
-	    catch(IOException e){
-	      System.out.println("Image non trouvé");
-	    }*/
 	}
-
-	    /*public Image getImage(){
-	   		return this.image;
-	    }*/
 	public Jeu getJeu(){
 	  	return jeu;
 	}

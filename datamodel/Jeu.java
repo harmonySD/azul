@@ -82,8 +82,6 @@ public class Jeu {
 		centre.add(new Tuile("vert"));  // vert=tuile -1
 		for(int j=0;j<fabriques.length;j++){
 			fabriques[j].remplirFabrique(sac);
-			//System.out.println(fabrique[i]);
-			
 		}
 	}
 	
@@ -106,18 +104,32 @@ public class Jeu {
 
 				//demander si prendre dans Fabrique ou centre 
 				Scanner sc0= new Scanner(System.in);
-				System.out.println("vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
+				System.out.println("Vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
 				int rep=sc0.nextInt();
+				while (rep!=1 && rep!=0){
+					System.out.println("Erreur,\n Vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
+					int rep=sc0.nextInt();
+				}
 
 				ArrayList<Tuile> t= new ArrayList<Tuile>();
 
 				if(rep==1){
 					Scanner sc=new Scanner(System.in);
-					System.out.println("indiquez le numero de la fabrique pour prendre une ou des tuiles :");
+					System.out.println("Indiquez le numero de la fabrique pour prendre une ou des tuiles :");
 					int fab=sc.nextInt();
+					while(fab<0 || fab>fabriques.length){
+						System.out.println("Erreur, mauvais numeros de fabrique. \n Indiquez le numero de la fabrique pour prendre une ou des tuiles :");
+						int fab=sc.nextInt();
+					}
 					Scanner sc2=new Scanner(System.in);
-					System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+					System.out.println("Indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 					String tui=sc2.next();
+					while(!choix.equals("noir") && !choix.equals("blanc") && 
+						  !choix.equals("orange") && !choix.equals("bleu") && !choix.equals("rouge")){
+						System.out.println("Erreur, mauvaise couleur écrite" +
+							  "\nIndiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+						String tui=sc2.next();
+					}
 
 					t=(fabriques[fab].take(tui,centre));
 
@@ -126,6 +138,12 @@ public class Jeu {
 					Scanner sc4= new Scanner(System.in);
 					System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 					String tui=sc4.next();
+					while(!choix.equals("noir") && !choix.equals("blanc") && 
+						  !choix.equals("orange") && !choix.equals("bleu") && !choix.equals("rouge")){
+						System.out.println("Erreur, mauvaise couleur écrite" +
+							  "\nIndiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
+						String tui=sc4.next();
+					}
 
 					t=take(tui);
 					if(!centre.isEmpty() && centre.get(0).getCouleur().equals("vert")){
@@ -146,8 +164,12 @@ public class Jeu {
 				System.out.println(joueurs[i].getPlancher());
 
 				Scanner sc3=new Scanner(System.in);
-				System.out.println("indiquez la ligne ou vous souhaitez posez vos tuiles :");
+				System.out.println("Indiquez la ligne ou vous souhaitez posez vos tuiles :");
 				int lig=sc3.nextInt();
+				while(lig<0 || lig>joueurs[i].getLigne().getTaille()){
+					System.out.println("Erreur, mauvaise ligne. \n Indiquez la ligne ou vous souhaitez posez vos tuiles :");
+					int lig=sc3.nextInt();
+				}
 				boolean b=joueurs[i].getLigne().add(t,lig);
 				if(!b){
 					if(!joueurs[i].getPlancher().addPlancher(t)) {
