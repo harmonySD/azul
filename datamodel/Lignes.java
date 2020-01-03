@@ -47,7 +47,6 @@ public class Lignes extends Plateau{
   //s'il y a deja une tuile d'une couleur sur cette ligne
   public boolean add(ArrayList<Tuile> t, int line){
     if (isFull(line)){
-      System.out.println("Ligne complete");
       return false;
     } 
     if (isEmptyLine(line)){
@@ -62,16 +61,20 @@ public class Lignes extends Plateau{
     	}
     }	 
     else{
-    	if (t.get(0).getCouleur().equals(plateau[line][0].getTuile().getCouleur())){// je voudrais dire si ce n'est pas vide et que la couleur de t n'est pas la meme qeu la couleur deja presente sur la ligne 
+    	if (!t.get(0).getCouleur().equals(plateau[line][0].getTuile().getCouleur())){
+      }
+      else{
         int i=0;
         while(plateau[line][i].getTuileDessus()){
           i++;
         }
         int n=Math.min(line+1,t.size()+i);
         for(int j=i;j<n;j++){
+          if(!t.get(0).getCouleur().equals("vert")){
             this.plateau[line][j].setTuile(t.get(0));
             plateau[line][j].setTuileDessus(true);
             t.remove(this.plateau[line][j].getTuile());
+          }
         }
       }
     }
@@ -83,7 +86,7 @@ public class Lignes extends Plateau{
   //ajoute au mur si la ligne est pleine et vide cette ligne dans la defausse en rendant le plateau de ligne vide
   public int removeLine(int line, ArrayList<Tuile> defausse, int score,Mur m){
     int n=m.addMur(this,plateau[line][0].getTuile(), line , score);
-    for(int i=0;i<taille;i++){
+    for(int i=0;i<plateau[line].length;i++){
       defausse.add(plateau[line][i].getTuile());
       plateau[line][i].setTuileDessus(false);
       plateau[line][i].setTuile(null);
