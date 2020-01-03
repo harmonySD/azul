@@ -25,6 +25,7 @@ public class Plateau{
 	public int getLongeur(){
 		return largeur;
 	}
+	//initialiser le plateau avec des casse null
 	public void remplirPlateauVide(){
 		for (int i=0;i<longueur;i++){
 			for (int j=0;j<plateau[i].length;j++){

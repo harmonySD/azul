@@ -16,6 +16,7 @@ public class Jouer{
 	    vue.setVisible(true);
   	}
 
+  	// class principal qui lance le jeu
 	public static void main(String[] args){
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Voulez vous jouer sur le terminal (t) ou avec l'interface graphique (i)");  //exception a gerer
