@@ -1,3 +1,10 @@
+**Comment faire marcher notre projet de programmation :Azul ?**
 
-‰¦z{ejw®z-­êk¢7­uêk¢
-Úšf­Š‰ÀÎéKyøœ†'«¦¸§r*Z•ë-&‹®6¯iÚ'r)_jë\¢jb•êÜyøœ†'«¦‹«•©Üz¹^¦º ­©¦xIìº+^•ë^®h§j[Úuéš×«uç!¢+"­éí­éb×«}§‚¶©†*®z‹¥z×«š)Ú”û¢²)]zf§ué^‰›­ç^‹º»µéìº+^•ë«‰¢êŞø§•©Üz¹^¦º ­©¦yÖ§²X§µêßiÇ¨¹Ö§²W­z¹¢©Cj{%z×«š)Ú”ú.®:.z¹^µêæŠv¥½ªh±êé–ë"zêìªç¬¶*'±ëi­éİ­ç§r‰©µéZ®š'±ç+Š×j{%z×«š)Ú”6§²X§µêßiÇ ­ªaŠ«.Šìªç¥Š{^­öœzö¬i÷âr«jç^²Ë¬uë%Š	Ş²)rjêÚr¸­•éè™Û£¢ç®®«¢vˆ­‹­ë\…©àz¶š¹û«zÙ²êŞjšìªè¥zËi¢Ë§zÛ¢•çZË(7®
+Le fichier principal est le fichier Jouer.java, donc pour lancer notre programme il faut compiler ce fichier.
+Ensuite le terminal va demander de choisir entre jouer dans l'interface graphique ou dans le terminal.
+Puis il va demander le nombre de joueur et enfin les noms des joueurs.
+
+**Dans le terminal**
+Le jeu va se faire avec une intÃ©raction entre des questions posÃ© par le terminal et les rÃ©ponses donnÃ©es par l'utilisateur dans le terminal.
+
+**Dans l'interface graphique**
