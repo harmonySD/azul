@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 import javax.swing.*;
@@ -30,13 +29,14 @@ public class Jouer{
 			System.out.println("Erreur, vous ne pouvez jouer qu'à 2,3 ou 4 joueurs. \n Entrez le nombre de joueur");
 			n=sc.nextInt();
 		}
+		int num=n;
 		VueGeneral vue;
 		if(choix.equals("t")){
-			vue=new VueTerminale(n);
+			vue=new VueTerminale(num);
 			vue.partie();
 		}
 		else if(choix.equals("i")) {
-			EventQueue.invokeLater( () -> {new Jouer(n);});
+			EventQueue.invokeLater( () -> {new Jouer(num);});
 		}
 
 	}
