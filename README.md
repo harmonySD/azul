@@ -1,6 +1,6 @@
 **Comment faire marcher notre projet de programmation : Azul ?**
 
-Le fichier principal est le fichier Jouer.java, donc pour lancer notre programme il faut compiler ce fichier.
+Le fichier principal est le fichier Jouer.java, qui se trouve dans datamodel, donc pour lancer notre programme il faut compiler ce fichier.
 Ensuite le terminal va demander de choisir entre jouer dans l'interface graphique ou dans le terminal.
 Puis il va demander le nombre de joueur et enfin les noms des joueurs.
 
