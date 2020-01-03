@@ -26,7 +26,6 @@ public class VueInterface extends JFrame implements VueGeneral{
 	public PlateauCentre plateauCentre;
 	public PlateauJoueur plateauJoueur;
 
-	private Jeu jeu;
 	private Joueur joueur;
 
 	public Joueur getJoueur(){
@@ -38,8 +37,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 
 	public VueInterface(ModelJeu m){
 		modele=m;
-		jeu=modele.getJeu();
-		joueur=jeu.getJoueur()[0];
+		joueur=modele.getJeu().getJoueur()[0];
 		plateauFabrique=new PlateauFabrique();
 		plateauCentre=new PlateauCentre();
 		plateauJoueur=new PlateauJoueur(joueur.getNum());
@@ -65,11 +63,11 @@ public class VueInterface extends JFrame implements VueGeneral{
 	public void fin(){
 		JLabel text;
 		JPanel p=new JPanel();
-		Joueur j=jeu.getJoueur()[0];
-		for(int i=0;i<jeu.getJoueur().length;i++){
-			JLabel t=new JLabel(jeu.getJoueur()[i].getNom()+" : "+jeu.getJoueur()[i].getScore()+", ");
+		Joueur j=modele.getJeu().getJoueur()[0];
+		for(int i=0;i<modele.getJeu().getJoueur().length;i++){
+			JLabel t=new JLabel(modele.getJeu().getJoueur()[i].getNom()+" : "+modele.getJeu().getJoueur()[i].getScore()+", ");
 			p.add(t);
-			if(j.getScore()<jeu.getJoueur()[i].getScore()) j=jeu.getJoueur()[i];
+			if(j.getScore()<modele.getJeu().getJoueur()[i].getScore()) j=modele.getJeu().getJoueur()[i];
 		}
 		text=new JLabel("-> "+j.getNom()+" a gagné avec un score de "+ j.getScore(), JLabel.CENTER);
 		p.add(text);
@@ -97,12 +95,12 @@ public class VueInterface extends JFrame implements VueGeneral{
     	getContentPane().add(p1);
     	getContentPane().add(plateauJoueur);
     	getContentPane().validate();
-    	/*try{
-    		TimeUnit.SECONDS.sleep(2);
+    	try{
+    		TimeUnit.SECONDS.sleep(1);
     	}
     	catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
 
 		modele.nextJoueur();
 		getContentPane().removeAll();
@@ -131,19 +129,19 @@ public class VueInterface extends JFrame implements VueGeneral{
 
 	    public PlateauFabrique(){
 	    	int taille=0;
-			for(int i=0;i<jeu.getFabrique().length;i++){
-				if(!jeu.getFabrique()[i].tasVide()) taille++;
+			for(int i=0;i<modele.getJeu().getFabrique().length;i++){
+				if(!modele.getJeu().getFabrique()[i].tasVide()) taille++;
 			}
 			JPanel[] tabPanel=new JPanel[taille];
 			if(taille!=0){
-		    	paneaux=new Paneau[taille][jeu.getFabrique()[0].getNbTuile()];
+		    	paneaux=new Paneau[taille][modele.getJeu().getFabrique()[0].getNbTuile()];
 		    	int m=0;
-		    	for(int i=0;i<jeu.getFabrique().length;i++){
-		    		if(!jeu.getFabrique()[i].tasVide()){
+		    	for(int i=0;i<modele.getJeu().getFabrique().length;i++){
+		    		if(!modele.getJeu().getFabrique()[i].tasVide()){
 		    			tabPanel[m]=new JPanel();
 	    				tabPanel[m].setLayout(new GridLayout(2,2));
 			    		for(int j=0;j<paneaux[m].length;j++){
-			    			paneaux[m][j]=new Paneau(j,jeu.getFabrique()[i].getTas()[j].getCouleur(),i);
+			    			paneaux[m][j]=new Paneau(j,modele.getJeu().getFabrique()[i].getTas()[j].getCouleur(),i);
 			    			tabPanel[m].add(paneaux[m][j]);
 			    		}
 		    		    m++;
@@ -209,13 +207,13 @@ public class VueInterface extends JFrame implements VueGeneral{
 		Paneau[] paneaux;
 
 	    public PlateauCentre(){
-	    	int taille=jeu.getCentre().size();
+	    	int taille=modele.getJeu().getCentre().size();
 	    	paneaux=new Paneau[taille];
 	    	JPanel[] tabPanel=new JPanel[taille];
 	    	for(int i=0;i<taille;i++){
 	    		tabPanel[i]=new JPanel();
 	    		tabPanel[i].setLayout(new BoxLayout(tabPanel[i],BoxLayout.LINE_AXIS));
-	    		paneaux[i]=new Paneau(i,jeu.getCentre().get(i).getCouleur());
+	    		paneaux[i]=new Paneau(i,modele.getJeu().getCentre().get(i).getCouleur());
 	    		tabPanel[i].add(paneaux[i]);
 	    	}
 	    	setBorder(new TitledBorder(new EtchedBorder(), "Centre"));
@@ -345,7 +343,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 	    		tabPanel[i]=new JPanel();
 	    		tabPanel[i].setLayout(new BoxLayout(tabPanel[i],BoxLayout.LINE_AXIS));
 		    	for(int j=0;j<paneaux[i].length;j++){
-		    		CaseCouleur cas=(CaseCouleur)jeu.getJoueur()[numJoueur].getMur().getPlateau()[i][j];
+		    		CaseCouleur cas=(CaseCouleur)modele.getJeu().getJoueur()[numJoueur].getMur().getPlateau()[i][j];
 		    		String couleur;
 		    		if(cas.getTuileDessus()) couleur=cas.getTuile().getCouleur();
 		    		else couleur =cas.getCouleur()+"bis";
@@ -396,7 +394,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 
 	    public PlateauPlancher(int n){
 	    	numJoueur=n;
-	    	int taille=jeu.getJoueur()[numJoueur].getPlancher().getTaille();
+	    	int taille=modele.getJeu().getJoueur()[numJoueur].getPlancher().getTaille();
 	    	paneaux=new Paneau[7];
 	    	JPanel[] tabPanel=new JPanel[7];
 	    	for(int i=0;i<7;i++){
@@ -480,7 +478,7 @@ public class VueInterface extends JFrame implements VueGeneral{
 		public void paintComponent(Graphics g){
 			// Appel de la méthode paintComponent de la classe parente
 			super.paintComponent(g);
-			setBorder(new TitledBorder(new EtchedBorder(), jeu.getJoueur()[numJoueur].getNom()+ " score : "+jeu.getJoueur()[numJoueur].getScore()));
+			setBorder(new TitledBorder(new EtchedBorder(), modele.getJeu().getJoueur()[numJoueur].getNom()+ " score : "+modele.getJeu().getJoueur()[numJoueur].getScore()));
 			plateauLigne.repaint();
 			plateauPlancher.repaint();
 			plateauMur.repaint();	

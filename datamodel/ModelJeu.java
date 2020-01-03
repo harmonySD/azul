@@ -18,8 +18,8 @@ public class ModelJeu{
     public ModelJeu(int n) {
 	  	jeu=new Jeu(n); 
 	  	jeu.preparation();
+	  	start=true;
 	  	vue=new VueInterface(this);
-	  	partie();
 	}
 	public VueInterface getVue(){
 	  	return vue;
@@ -61,14 +61,28 @@ public class ModelJeu{
 	}
 
 	public void deplacementTuileLigne(int line){
-		boolean b=vue.getJoueur().getLigne().add(tuileChoisi,line);
-		if(!b){
-			if(!vue.getJoueur().getPlancher().addPlancher(tuileChoisi)) {
-				for(int a=0;a<tuileChoisi.size();a++){
-					jeu.getDefausse().add(tuileChoisi.get(a));
+		if(!tuileChoisi.isEmpty()){
+			boolean b=vue.getJoueur().getLigne().add(tuileChoisi,line);
+			if(!b){
+				if(!vue.getJoueur().getPlancher().addPlancher(tuileChoisi)) {
+					for(int a=0;a<tuileChoisi.size();a++){
+						jeu.getDefausse().add(tuileChoisi.get(a));
+					}
 				}
 			}
+			if(!jeu.isTuileInGame()){
+				start=false;
+				decoration();
+			}
 		}
+	}
+
+	public void decoration(){
+		jeu.decoration();
+		jeu.preparation();
+		vue.nouvelAffichage();
+		if(jeu.isFullLine()) start=true;
+		else vue.fin();
 	}
 
 	public void nextJoueur(){

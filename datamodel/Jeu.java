@@ -91,8 +91,7 @@ public class Jeu {
 		centre.add(new Tuile("vert"));  // vert=tuile -1
 		for(int j=0;j<fabriques.length;j++){
 			fabriques[j].remplirFabrique(sac);
-			//System.out.println(fabrique[i]);
-			
+			System.out.println(fabriques[j]);
 		}
 	}
 	
@@ -177,7 +176,6 @@ public class Jeu {
 		}
 	}
 	public void decoration(){
-		System.out.println("decoration");
 		for (int i=0; i<joueurs.length; i++) {
 			for (int j=0;j<5 ;j++ ) {
 				boolean b=joueurs[i].getLigne().isFull(j);
