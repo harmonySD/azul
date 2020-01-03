@@ -1,5 +1,4 @@
 
-
 import java.util.*;
 
 public class Jeu {
@@ -112,7 +111,7 @@ public class Jeu {
 				int rep=sc0.nextInt();
 				while (rep!=1 && rep!=0){
 					System.out.println("Erreur,\n Vous souhaitez prendre une ou des tuiles dans une fabrique (1) ou au centre (2) : ");
-					int rep=sc0.nextInt();
+					rep=sc0.nextInt();
 				}
 
 				ArrayList<Tuile> t= new ArrayList<Tuile>();
@@ -123,7 +122,7 @@ public class Jeu {
 					int fab=sc.nextInt();
 					while(fab<0 || fab>fabriques.length){
 						System.out.println("Erreur, mauvais numeros de fabrique. \n Indiquez le numero de la fabrique pour prendre une ou des tuiles :");
-						int fab=sc.nextInt();
+						fab=sc.nextInt();
 					}
 					Scanner sc2=new Scanner(System.in);
 					System.out.println("Indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
@@ -132,7 +131,7 @@ public class Jeu {
 						  !choix.equals("orange") && !choix.equals("bleu") && !choix.equals("rouge")){
 						System.out.println("Erreur, mauvaise couleur écrite" +
 							  "\nIndiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
-						String tui=sc2.next();
+						tui=sc2.next();
 					}
 
 					t=(fabriques[fab].take(tui,centre));
@@ -172,7 +171,7 @@ public class Jeu {
 				int lig=sc3.nextInt();
 				while(lig<0 || lig>joueurs[i].getLigne().getTaille()){
 					System.out.println("Erreur, mauvaise ligne. \n Indiquez la ligne ou vous souhaitez posez vos tuiles :");
-					int lig=sc3.nextInt();
+					lig=sc3.nextInt();
 				}
 				boolean b=joueurs[i].getLigne().add(t,lig);
 				if(!b){
