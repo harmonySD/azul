@@ -13,6 +13,7 @@ public class Plancher extends Plateau{
     return taille;
   }
 
+  // ajouter les tuiles en trop dans le plancher
   public boolean addPlancher(ArrayList<Tuile> t){
   	if(this.plateau[0][6].getTuileDessus()){
   		System.out.println("Plancher plein");
@@ -31,6 +32,7 @@ public class Plancher extends Plateau{
     else return true;
   }
 
+  // vider le plancher et tout mettre dans la defausse
   public void remiseAZero(ArrayList<Tuile> defausse){
   	for(int i=0; i<taille;i++){
   		if(this.plateau[0][i].getTuileDessus()){
@@ -38,9 +40,8 @@ public class Plancher extends Plateau{
   		}
   	}
   }
-  // ecrire fonction qui remet le plancher a 0 et met les tuiles dans la defausse
 
-
+  //calcul des points du plancher
   public int totalPlancher(){
   	int compt=0;
   	for(int i=0;i<taille;i++){

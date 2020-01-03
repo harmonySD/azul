@@ -24,6 +24,7 @@ public class ModelJeu{
 		return start;
 	}
 
+	//fonction principal
 	public void partie(){
 		while(jeu.isFullLine()){
 			jeu.preparation();
@@ -33,6 +34,7 @@ public class ModelJeu{
 		fin();
 	}
 
+	//fonction qui permet de clique sur les tuiles
 	public void offre(){
 		start=true;
 

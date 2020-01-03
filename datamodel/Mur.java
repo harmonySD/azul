@@ -8,6 +8,7 @@ public class Mur extends Plateau {
     remplirPlateauVide();
   }
 
+  //remplir de caseCouleur null
   public void remplirPlateauVide(){
     for (int i=0;i<taille;i++){
       for (int j=0;j<taille;j++){
@@ -29,6 +30,8 @@ public class Mur extends Plateau {
   public int getTaille(){
     return taille;
   }
+
+  // ajouter au mur une tuile si la ligne (line) est complete et calcule le score
   public int addMur(Lignes li,Tuile t,int line,int score){
     int compt =score;
     String couleur=li.plateau[line][0].getTuile().getCouleur();
