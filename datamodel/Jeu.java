@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class Jeu {
@@ -127,8 +126,8 @@ public class Jeu {
 					Scanner sc2=new Scanner(System.in);
 					System.out.println("Indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 					String tui=sc2.next();
-					while(!choix.equals("noir") && !choix.equals("blanc") && 
-						  !choix.equals("orange") && !choix.equals("bleu") && !choix.equals("rouge")){
+					while(!tui.equals("noir") && !tui.equals("blanc") && 
+						  !tui.equals("orange") && !tui.equals("bleu") && !tui.equals("rouge")){
 						System.out.println("Erreur, mauvaise couleur écrite" +
 							  "\nIndiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 						tui=sc2.next();
@@ -141,11 +140,11 @@ public class Jeu {
 					Scanner sc4= new Scanner(System.in);
 					System.out.println("indiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
 					String tui=sc4.next();
-					while(!choix.equals("noir") && !choix.equals("blanc") && 
-						  !choix.equals("orange") && !choix.equals("bleu") && !choix.equals("rouge")){
+					while(!tui.equals("noir") && !tui.equals("blanc") && 
+						  !tui.equals("orange") && !tui.equals("bleu") && !tui.equals("rouge")){
 						System.out.println("Erreur, mauvaise couleur écrite" +
 							  "\nIndiquez la couleur de la tuile que vous voulez (noir,orange,blanc,bleu ou rouge) :");
-						String tui=sc4.next();
+						tui=sc4.next();
 					}
 
 					t=take(tui);
