@@ -71,7 +71,8 @@ public class VueInterface extends JFrame implements VueGeneral{
 		}
 		text=new JLabel("-> "+j.getNom()+" a gagné avec un score de "+ j.getScore(), JLabel.CENTER);
 		p.add(text);
-		this.getContentPane().add(p);
+		getContentPane().add(p);
+		getContentPane().validate();
 		modele.getJeu().fin();
 	}
 
